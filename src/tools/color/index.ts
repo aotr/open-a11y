@@ -1,2 +1,2 @@
-export { FILTERS, enableContrast } from './contrast'
-export { default as invert } from './invert'
+export { FILTERS, enableContrast } from "./contrast";
+export { default as invert } from "./invert";

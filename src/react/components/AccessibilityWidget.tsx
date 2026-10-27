@@ -24,21 +24,21 @@
  * Or standalone:
  *   <AccessibilityWidget position="bottom-right" />
  */
-'use client'
+"use client";
 
-import { useEffect } from 'react'
-import { useAccessibilityContext } from '../provider/AccessibilityProvider'
-import type { UIOptions } from '../../ui/wire-up'
+import { useEffect } from "react";
+import { useAccessibilityContext } from "../provider/AccessibilityProvider";
+import type { UIOptions } from "../../ui/wire-up";
 
 interface AccessibilityWidgetProps extends UIOptions {
   /** Position of the floating button (default: 'bottom-right') */
-  position?: 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right'
+  position?: "bottom-left" | "bottom-right" | "top-left" | "top-right";
   /** Panel slide direction: 'right' (default) or 'left' */
-  side?: 'right' | 'left'
+  side?: "right" | "left";
   /** Whether to show backdrop blur when panel is open (default: true) */
-  blur?: boolean
+  blur?: boolean;
   /** Custom container element selector for mounting */
-  mountSelector?: string
+  mountSelector?: string;
 }
 
 export function AccessibilityWidget({
@@ -51,14 +51,14 @@ export function AccessibilityWidget({
   mountSelector,
   config,
 }: AccessibilityWidgetProps) {
-  const { engine, showWidget, hideWidget } = useAccessibilityContext()
+  const { engine, showWidget, hideWidget } = useAccessibilityContext();
 
   useEffect(() => {
-    if (!engine) return
+    if (!engine) return;
 
     const target = mountSelector
       ? (document.querySelector(mountSelector) as HTMLElement)
-      : container
+      : container;
 
     // Undefined props defer to the engine's resolved config; explicit props win.
     showWidget({
@@ -69,12 +69,24 @@ export function AccessibilityWidget({
       blur,
       container: target ?? undefined,
       config,
-    })
+    });
 
-    return () => hideWidget()
-  }, [engine, position, offsetX, offsetY, side, blur, container, mountSelector, config, showWidget, hideWidget])
+    return () => hideWidget();
+  }, [
+    engine,
+    position,
+    offsetX,
+    offsetY,
+    side,
+    blur,
+    container,
+    mountSelector,
+    config,
+    showWidget,
+    hideWidget,
+  ]);
 
   // This component doesn't render anything itself — it mounts Web Components
   // into the DOM via createAccessibilityUI.
-  return null
+  return null;
 }

@@ -5,20 +5,20 @@
  * and injects screen-reader-only announcement regions for
  * dynamic content changes.
  */
-import { injectToolCSS } from '../../css/cssInjector'
-import type { IToolConfig } from '../../types'
-import { ALL_ELEMENT_SELECTORS } from '../../css/selectors'
+import { injectToolCSS } from "../../css/cssInjector";
+import type { IToolConfig } from "../../types";
+import { ALL_ELEMENT_SELECTORS } from "../../css/selectors";
 
-const SKIP_LINK_ID = 'asw-skip-link'
-const ANNOUNCE_ID = 'asw-announce'
+const SKIP_LINK_ID = "asw-skip-link";
+const ANNOUNCE_ID = "asw-announce";
 
 const screenReaderConfig: IToolConfig = {
-  id: 'screen-reader',
-  selector: 'html',
+  id: "screen-reader",
+  selector: "html",
   childrenSelector: ALL_ELEMENT_SELECTORS,
   styles: {
-    'outline': '2px solid #0048ff',
-    'outline-offset': '2px',
+    outline: "2px solid #0048ff",
+    "outline-offset": "2px",
   },
   css: `
 /* Skip to content link */
@@ -53,53 +53,53 @@ const screenReaderConfig: IToolConfig = {
   border: 0;
 }
 `,
-}
+};
 
-let skipLinkEl: HTMLAnchorElement | null = null
-let announceEl: HTMLElement | null = null
+let skipLinkEl: HTMLAnchorElement | null = null;
+let announceEl: HTMLElement | null = null;
 
 export default function screenReader(enable = false): void {
-  if (typeof document === 'undefined') return
+  if (typeof document === "undefined") return;
 
   if (enable) {
     // Apply CSS enhancements
-    injectToolCSS({ ...screenReaderConfig, enable })
+    injectToolCSS({ ...screenReaderConfig, enable });
 
     // Create skip-to-content link
     if (!document.getElementById(SKIP_LINK_ID)) {
-      skipLinkEl = document.createElement('a')
-      skipLinkEl.id = SKIP_LINK_ID
-      skipLinkEl.href = '#main-content'
-      skipLinkEl.textContent = 'Skip to main content'
-      document.body.insertBefore(skipLinkEl, document.body.firstChild)
+      skipLinkEl = document.createElement("a");
+      skipLinkEl.id = SKIP_LINK_ID;
+      skipLinkEl.href = "#main-content";
+      skipLinkEl.textContent = "Skip to main content";
+      document.body.insertBefore(skipLinkEl, document.body.firstChild);
     }
 
     // Create aria-live announcement region
     if (!document.getElementById(ANNOUNCE_ID)) {
-      announceEl = document.createElement('div')
-      announceEl.id = ANNOUNCE_ID
-      announceEl.setAttribute('aria-live', 'polite')
-      announceEl.setAttribute('aria-atomic', 'true')
-      document.body.appendChild(announceEl)
+      announceEl = document.createElement("div");
+      announceEl.id = ANNOUNCE_ID;
+      announceEl.setAttribute("aria-live", "polite");
+      announceEl.setAttribute("aria-atomic", "true");
+      document.body.appendChild(announceEl);
     }
 
     // Add main landmark if missing
-    if (!document.querySelector('main')) {
-      const main = document.querySelector('#main-content, [role="main"]')
+    if (!document.querySelector("main")) {
+      const main = document.querySelector('#main-content, [role="main"]');
       if (!main) {
         // Don't create elements we can't place properly
       }
     }
   } else {
     // Remove CSS
-    injectToolCSS({ ...screenReaderConfig, enable })
+    injectToolCSS({ ...screenReaderConfig, enable });
 
     // Remove skip link
-    skipLinkEl?.remove()
-    skipLinkEl = null
+    skipLinkEl?.remove();
+    skipLinkEl = null;
 
     // Remove announcement region
-    announceEl?.remove()
-    announceEl = null
+    announceEl?.remove();
+    announceEl = null;
   }
 }

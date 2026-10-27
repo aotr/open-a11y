@@ -14,14 +14,14 @@ code. It is not exported from `open-a11y`.
 
 ## 🧠 Responsibilities
 
-| Responsibility | Implementation |
-|---|---|
-| Hold current settings | `ISettings { lang, states, updatedAt }` |
-| Notify subscribers | `Set<StateChangeListener>` — called on every mutation |
-| Persist automatically | Writes to `IStorageAdapter` on every state change |
-| Hydrate from storage | Reads from `IStorageAdapter` on initialization |
-| Support batch updates | `setMany()` for multi-tool profile application |
-| Support full reset | `reset()` clears all states, preserves language |
+| Responsibility        | Implementation                                        |
+| --------------------- | ----------------------------------------------------- |
+| Hold current settings | `ISettings { lang, states, updatedAt }`               |
+| Notify subscribers    | `Set<StateChangeListener>` — called on every mutation |
+| Persist automatically | Writes to `IStorageAdapter` on every state change     |
+| Hydrate from storage  | Reads from `IStorageAdapter` on initialization        |
+| Support batch updates | `setMany()` for multi-tool profile application        |
+| Support full reset    | `reset()` clears all states, preserves language       |
 
 ---
 
@@ -29,36 +29,36 @@ code. It is not exported from `open-a11y`.
 
 ```ts
 interface ISettings {
-  lang?: string                    // Active language code ('en', 'hi')
-  states?: ISettingsStates          // Tool states keyed by tool ID
-  updatedAt?: string                // ISO timestamp of last change
+  lang?: string; // Active language code ('en', 'hi')
+  states?: ISettingsStates; // Tool states keyed by tool ID
+  updatedAt?: string; // ISO timestamp of last change
 }
 
 interface ISettingsStates {
   // Boolean tools
-  'font-weight'?: boolean
-  'readable-font'?: boolean
-  'highlight-links'?: boolean
-  'invert'?: boolean
-  'big-cursor'?: boolean
-  'visible-focus'?: boolean
-  'stop-animations'?: boolean
-  'reduced-motion'?: boolean
-  'reading-guide'?: boolean
-  'reading-ruler'?: boolean
-  'focus-mode'?: boolean
+  "font-weight"?: boolean;
+  "readable-font"?: boolean;
+  "highlight-links"?: boolean;
+  invert?: boolean;
+  "big-cursor"?: boolean;
+  "visible-focus"?: boolean;
+  "stop-animations"?: boolean;
+  "reduced-motion"?: boolean;
+  "reading-guide"?: boolean;
+  "reading-ruler"?: boolean;
+  "focus-mode"?: boolean;
   // ... all other boolean tools
 
   // Continuous tools
-  fontSize?: number          // 0.1–2.0
-  lineHeight?: number        // 1.0–3.0
-  letterSpacing?: number     // 0–10
+  fontSize?: number; // 0.1–2.0
+  lineHeight?: number; // 1.0–3.0
+  letterSpacing?: number; // 0–10
 
   // Exclusive contrast (string, not boolean)
-  contrast?: string          // 'dark-contrast' | 'light-contrast' | etc.
+  contrast?: string; // 'dark-contrast' | 'light-contrast' | etc.
 
   // Profile tracking
-  activeProfile?: string | null  // Currently active profile ID, or null
+  activeProfile?: string | null; // Currently active profile ID, or null
 }
 ```
 
@@ -96,6 +96,7 @@ setTool(key: string, value: unknown): void {
 ```
 
 **Every mutation:**
+
 1. Creates a new `states` object (immutable update pattern)
 2. Sets the `updatedAt` timestamp
 3. Calls `notify()` — iterates all listeners with the new settings
@@ -168,12 +169,12 @@ Called once at engine startup. Reads from storage, parses JSON, merges with defa
 ```ts
 // Subscribe
 const unsubscribe = stateManager.subscribe((settings) => {
-  console.log('Settings changed:', settings.states)
+  console.log("Settings changed:", settings.states);
   // React setState, UI update, analytics, etc.
-})
+});
 
 // Unsubscribe
-unsubscribe()
+unsubscribe();
 ```
 
 Listeners receive a **frozen** settings object — safe to read but not to mutate.
@@ -183,7 +184,7 @@ Listeners receive a **frozen** settings object — safe to read but not to mutat
 ## 🔗 Storage Key
 
 ```ts
-export const STORAGE_KEY = 'asw-user-settings'
+export const STORAGE_KEY = "asw-user-settings";
 ```
 
 Same key across all adapters (localStorage, memory, cookie). This is the single source of truth for persisted preferences.

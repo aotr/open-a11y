@@ -77,12 +77,14 @@ Defined in `package.json` → `"files"`:
 ```
 
 **What's included:**
+
 - `dist/` — Built JavaScript + TypeScript declarations
 - `README.md` — Package documentation
 - `LICENSE` — MIT license
 - `CHANGELOG.md` — Version history
 
 **What's excluded (via `.npmignore`):**
+
 - `src/` — Source TypeScript (consumers use `dist/`)
 - `__tests__/` — Test files
 - `tsconfig.json`, `rollup.config.mjs`, `vitest.config.ts` — Build config
@@ -144,11 +146,11 @@ npm install /path/to/aotr-open-a11y-2.0.0.tgz
 
 ## 🏷️ Semantic Versioning
 
-| Change | Version | Example |
-|---|---|---|
-| Bug fix | Patch (1.0.x) | `1.0.0` → `1.0.1` |
+| Change                           | Version       | Example           |
+| -------------------------------- | ------------- | ----------------- |
+| Bug fix                          | Patch (1.0.x) | `1.0.0` → `1.0.1` |
 | New feature, backward-compatible | Minor (1.x.0) | `1.0.0` → `1.1.0` |
-| Breaking API change | Major (x.0.0) | `1.0.0` → `2.0.0` |
+| Breaking API change              | Major (x.0.0) | `1.0.0` → `2.0.0` |
 
 ---
 

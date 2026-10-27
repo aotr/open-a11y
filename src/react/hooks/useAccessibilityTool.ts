@@ -10,52 +10,49 @@
  *   // value is a number (1.0 = 100%)
  *   return <input type="range" value={value} onChange={e => setValue(+e.target.value)} />
  */
-'use client'
+"use client";
 
-import { useCallback, useMemo } from 'react'
-import { useAccessibilityContext } from '../provider/AccessibilityProvider'
-import { getTool, isContinuousTool, isExclusiveTool } from '../../tools/manifest'
+import { useCallback, useMemo } from "react";
+import { useAccessibilityContext } from "../provider/AccessibilityProvider";
+import { getTool, isContinuousTool, isExclusiveTool } from "../../tools/manifest";
 
 export function useAccessibilityTool(toolId: string) {
-  const ctx = useAccessibilityContext()
-  const tool = getTool(toolId)
+  const ctx = useAccessibilityContext();
+  const tool = getTool(toolId);
   const stateKey = isContinuousTool(tool)
     ? tool.stateKey
     : isExclusiveTool(tool)
       ? tool.group.stateKey
-      : toolId
+      : toolId;
 
   const isEnabled = useMemo(() => {
-    if (isExclusiveTool(tool)) return ctx.settings.states?.[tool.group.stateKey] === tool.id
-    return !!ctx.settings.states?.[stateKey]
-  }, [ctx.settings.states, stateKey, tool])
+    if (isExclusiveTool(tool)) return ctx.settings.states?.[tool.group.stateKey] === tool.id;
+    return !!ctx.settings.states?.[stateKey];
+  }, [ctx.settings.states, stateKey, tool]);
 
-  const value = useMemo(
-    () => ctx.settings.states?.[stateKey],
-    [ctx.settings.states, stateKey]
-  )
+  const value = useMemo(() => ctx.settings.states?.[stateKey], [ctx.settings.states, stateKey]);
 
   const toggle = useCallback(() => {
-    ctx.toggleTool(toolId)
-  }, [ctx, toolId])
+    ctx.toggleTool(toolId);
+  }, [ctx, toolId]);
 
   const setEnabled = useCallback(
     (enabled: boolean) => {
-      ctx.toggleTool(toolId, enabled)
+      ctx.toggleTool(toolId, enabled);
     },
-    [ctx, toolId]
-  )
+    [ctx, toolId],
+  );
 
   const setValue = useCallback(
     (val: unknown) => {
       if (isContinuousTool(tool)) {
-        ctx.toggleTool(toolId, Number(val))
+        ctx.toggleTool(toolId, Number(val));
       } else {
-        ctx.toggleTool(toolId, !!val)
+        ctx.toggleTool(toolId, !!val);
       }
     },
-    [ctx, toolId, tool]
-  )
+    [ctx, toolId, tool],
+  );
 
   return {
     /** Whether the tool is currently enabled */
@@ -68,5 +65,5 @@ export function useAccessibilityTool(toolId: string) {
     setEnabled,
     /** Set a value (numeric tools) or enabled state */
     setValue,
-  }
+  };
 }

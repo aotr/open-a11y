@@ -15,25 +15,19 @@ export {
   readableFontAlt,
   TEXT_ALIGNMENTS,
   enableTextAlignment,
-} from './content'
+} from "./content";
 
 // Color
-export { enableContrast, FILTERS, invert } from './color'
+export { enableContrast, FILTERS, invert } from "./color";
 
 // Readability
-export {
-  readingGuide,
-  readingRuler,
-  focusMode,
-  readingMask,
-  screenReader,
-} from './readability'
+export { readingGuide, readingRuler, focusMode, readingMask, screenReader } from "./readability";
 
 // Motion
-export { stopAnimations, reducedMotion } from './motion'
+export { stopAnimations, reducedMotion } from "./motion";
 
 // Navigation
-export { bigCursor, visibleFocus } from './navigation'
+export { bigCursor, visibleFocus } from "./navigation";
 
 // Manifest — single source of truth for tool metadata
-export * from './manifest'
+export * from "./manifest";

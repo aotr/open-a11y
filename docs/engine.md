@@ -10,17 +10,17 @@ and owns the reset transaction.
 
 ## 🧠 Responsibilities
 
-| Responsibility | How |
-|---|---|
-| Resolve config | `mergeConfig(options.config)` plus explicit engine options, exposed as `engine.config` |
-| State | Creates an internal `StateManager` with the storage adapter |
-| Translations | Calls `initTranslations(lang)` on startup |
-| Hydration | Restores saved settings and migrates legacy exclusive-tool keys |
-| Tool dispatch | Resolves the tool from the manifest and calls its executor |
-| Exclusive groups | Stores the active ID under `contrast` / `textAlign` |
-| Continuous values | `fontSize`, `lineHeight`, `letterSpacing` |
-| Profiles | One `setMany` write, then apply the resulting state |
-| Reset | One state reset, remove tool effects, clear injected CSS |
+| Responsibility    | How                                                                                    |
+| ----------------- | -------------------------------------------------------------------------------------- |
+| Resolve config    | `mergeConfig(options.config)` plus explicit engine options, exposed as `engine.config` |
+| State             | Creates an internal `StateManager` with the storage adapter                            |
+| Translations      | Calls `initTranslations(lang)` on startup                                              |
+| Hydration         | Restores saved settings and migrates legacy exclusive-tool keys                        |
+| Tool dispatch     | Resolves the tool from the manifest and calls its executor                             |
+| Exclusive groups  | Stores the active ID under `contrast` / `textAlign`                                    |
+| Continuous values | `fontSize`, `lineHeight`, `letterSpacing`                                              |
+| Profiles          | One `setMany` write, then apply the resulting state                                    |
+| Reset             | One state reset, remove tool effects, clear injected CSS                               |
 
 `StateManager` is internal. Import it from `src/state/StateManager` in tests or
 internals, not from the package root.

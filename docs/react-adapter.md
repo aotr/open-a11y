@@ -36,11 +36,11 @@ The root component that provides accessibility state to the entire React tree.
 
 ```ts
 interface AccessibilityProviderProps {
-  children: ReactNode
-  engine: AccessibilityEngine          // Pre-initialized engine instance
-  autoInit?: boolean                   // Call engine.init() on mount (default: true)
-  showWidgetOnMount?: boolean          // Auto-mount the floating button (default: false)
-  widgetOptions?: UIOptions            // Options for the UI widget if auto-mounted
+  children: ReactNode;
+  engine: AccessibilityEngine; // Pre-initialized engine instance
+  autoInit?: boolean; // Call engine.init() on mount (default: true)
+  showWidgetOnMount?: boolean; // Auto-mount the floating button (default: false)
+  widgetOptions?: UIOptions; // Options for the UI widget if auto-mounted
 }
 ```
 
@@ -49,23 +49,23 @@ interface AccessibilityProviderProps {
 **1. Creates a React Context:**
 
 ```ts
-const AccessibilityReactContext = createContext<AccessibilityContextValue | null>(null)
+const AccessibilityReactContext = createContext<AccessibilityContextValue | null>(null);
 ```
 
 **2. Initializes the engine on mount:**
 
 ```ts
 useEffect(() => {
-  if (!autoInit || initialized) return
+  if (!autoInit || initialized) return;
   engine.init().then(() => {
-    setSettings(engine.settings)
-    setInitialized(true)
-  })
+    setSettings(engine.settings);
+    setInitialized(true);
+  });
   const unsub = engine.subscribe((newSettings) => {
-    setSettings(newSettings)  // React state → re-render
-  })
-  return () => unsub()
-}, [engine, autoInit])
+    setSettings(newSettings); // React state → re-render
+  });
+  return () => unsub();
+}, [engine, autoInit]);
 ```
 
 **3. Subscribes to engine state changes:**
@@ -77,8 +77,8 @@ The `engine.subscribe()` callback calls `setSettings()`, triggering React re-ren
 ```ts
 const toggleTool = useCallback(
   (toolId: string, enabled?: boolean) => engine.toggleTool(toolId, enabled),
-  [engine]
-)
+  [engine],
+);
 ```
 
 All engine methods are wrapped in `useCallback` for referential stability.
@@ -92,8 +92,7 @@ All engine methods are wrapped in `useCallback` for referential stability.
 Returns the full context value. Throws if used outside `<AccessibilityProvider>`.
 
 ```ts
-const { settings, toggleTool, setFontScale, applyProfile, engine } =
-  useAccessibilityContext()
+const { settings, toggleTool, setFontScale, applyProfile, engine } = useAccessibilityContext();
 ```
 
 ### `useAccessibility()`
@@ -102,14 +101,14 @@ Primary hook for most use cases. Returns a convenient API:
 
 ```ts
 const {
-  states,        // Current tool states
-  lang,          // Current language
-  toggleTool,     // (toolId, enabled?) => void
-  setFontScale,   // (scale: 0.1-2.0) => void
-  applyProfile,   // (profileId) => void
-  setLanguage,    // (lang) => void
-  reset,          // () => void
-} = useAccessibility()
+  states, // Current tool states
+  lang, // Current language
+  toggleTool, // (toolId, enabled?) => void
+  setFontScale, // (scale: 0.1-2.0) => void
+  applyProfile, // (profileId) => void
+  setLanguage, // (lang) => void
+  reset, // () => void
+} = useAccessibility();
 ```
 
 ### `useAccessibilityTool(toolId: string)`
@@ -117,7 +116,7 @@ const {
 Hook for a single tool:
 
 ```ts
-const { enabled, toggle, setEnabled } = useAccessibilityTool('monochrome')
+const { enabled, toggle, setEnabled } = useAccessibilityTool("monochrome");
 // enabled: boolean — current state
 // toggle: () => void — toggle on/off
 // setEnabled: (v: boolean) => void — set explicitly
@@ -128,7 +127,7 @@ const { enabled, toggle, setEnabled } = useAccessibilityTool('monochrome')
 Hook for profile management:
 
 ```ts
-const { apply, availableProfiles, isProfileActive } = useAccessibilityProfile()
+const { apply, availableProfiles, isProfileActive } = useAccessibilityProfile();
 // apply: (profileId) => void
 // availableProfiles: IProfile[]
 // isProfileActive: (id) => boolean
@@ -145,32 +144,35 @@ const { apply, availableProfiles, isProfileActive } = useAccessibilityProfile()
 Mounts the Web Component UI (floating button + sidebar) into the DOM. This component renders **nothing** — it calls `createAccessibilityUI()` as a side effect.
 
 ```tsx
-<AccessibilityWidget
-  position="bottom-right"
-  side="right"
-  blur={true}
-/>
+<AccessibilityWidget position="bottom-right" side="right" blur={true} />
 ```
 
 **Props:**
-| Prop | Type | Description |
-|---|---|---|
-| `position` | `'bottom-left' \| 'bottom-right' \| 'top-left' \| 'top-right'` | Button position |
-| `side` | `'right' \| 'left'` | Panel slide direction |
-| `blur` | `boolean` | Backdrop blur when open |
-| `offsetX` | `number` | Horizontal offset in px |
-| `offsetY` | `number` | Vertical offset in px |
+
+| Prop       | Type                                                           | Description             |
+| ---------- | -------------------------------------------------------------- | ----------------------- |
+| `position` | `'bottom-left' \| 'bottom-right' \| 'top-left' \| 'top-right'` | Button position         |
+| `side`     | `'right' \| 'left'`                                            | Panel slide direction   |
+| `blur`     | `boolean`                                                      | Backdrop blur when open |
+| `offsetX`  | `number`                                                       | Horizontal offset in px |
+| `offsetY`  | `number`                                                       | Vertical offset in px   |
 
 **How it works:**
 
 ```ts
 useEffect(() => {
   uiRef.current = createAccessibilityUI(engine, {
-    position, offsetX, offsetY, side, blur,
+    position,
+    offsetX,
+    offsetY,
+    side,
+    blur,
     container: target ?? undefined,
-  })
-  return () => { uiRef.current?.destroy() }
-}, [engine, position, offsetX, offsetY, side, blur, container, mountSelector])
+  });
+  return () => {
+    uiRef.current?.destroy();
+  };
+}, [engine, position, offsetX, offsetY, side, blur, container, mountSelector]);
 ```
 
 - Props are explicit UI overrides; omitted values come from `engine.config`
@@ -190,6 +192,7 @@ Renders the full settings panel **inline** — useful for embedding in a setting
 ```
 
 **What it renders:**
+
 - Profile cards (7 profiles in a 3-column grid)
 - Language selector (`<select>`)
 - Font size adjuster with +/- buttons

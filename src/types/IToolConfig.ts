@@ -8,26 +8,26 @@
  */
 export interface IToolConfig {
   /** Unique tool identifier, e.g. "font-size", "monochrome" */
-  id?: string
+  id?: string;
 
   /** Root CSS selector to scope styles under (usually 'html') */
-  selector?: string
+  selector?: string;
 
   /**
    * Child selectors to apply styles to.
    * Each child selector is combined with the root selector.
    * Example: ['p', 'h1', 'h2'] → "html.asw-tool-id p, html.asw-tool-id h1, ..."
    */
-  childrenSelector?: string[]
+  childrenSelector?: string[];
 
   /** CSS property-value pairs to apply */
-  styles?: Record<string, unknown>
+  styles?: Record<string, unknown>;
 
   /** Raw CSS string appended after generated styles (for @font-face, etc.) */
-  css?: string
+  css?: string;
 
   /** Whether the tool is currently enabled */
-  enable?: boolean
+  enable?: boolean;
 }
 
-export default IToolConfig
+export default IToolConfig;

@@ -12,13 +12,16 @@ npm install
 npm run build
 ```
 
-| Adapter | Command | URL |
-|---|---|---|
+The demos are Vite+ apps. Run them through the root scripts, or use `vp dev`
+inside any example directory after installing its dependencies.
+
+| Adapter    | Command                | URL                   |
+| ---------- | ---------------------- | --------------------- |
 | Vanilla JS | `npm run demo:vanilla` | http://localhost:4174 |
-| React | `npm run demo:react` | http://localhost:4175 |
-| Vue | `npm run demo:vue` | http://localhost:4176 |
-| Svelte | `npm run demo:svelte` | http://localhost:4177 |
-| Angular | `npm run demo:angular` | http://localhost:4178 |
+| React      | `npm run demo:react`   | http://localhost:4175 |
+| Vue        | `npm run demo:vue`     | http://localhost:4176 |
+| Svelte     | `npm run demo:svelte`  | http://localhost:4177 |
+| Angular    | `npm run demo:angular` | http://localhost:4178 |
 
 The Angular app uses pnpm because Angular's builder is kept out of the package
 root. Install its dependencies once:

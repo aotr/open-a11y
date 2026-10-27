@@ -13,7 +13,7 @@
  * Events:
  *   toggle    — Fired with { toolId, enabled } on click
  */
-import { renderIcon } from '../icons/sprite'
+import { renderIcon } from "../icons/sprite";
 
 function getToggleTemplate(): string {
   return `
@@ -91,101 +91,105 @@ function getToggleTemplate(): string {
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="34" height="34" fill="#333"></svg>
     <span class="asw-label"></span>
   </button>
-`
+`;
 }
 
-const _HTMLElement = (typeof HTMLElement !== 'undefined' ? HTMLElement : class {}) as typeof HTMLElement
+const _HTMLElement = (
+  typeof HTMLElement !== "undefined" ? HTMLElement : class {}
+) as typeof HTMLElement;
 
 export class AswToggle extends _HTMLElement {
-  private _button: HTMLButtonElement | null = null
-  private _svg: SVGElement | null = null
-  private _label: HTMLSpanElement | null = null
+  private _button: HTMLButtonElement | null = null;
+  private _svg: SVGElement | null = null;
+  private _label: HTMLSpanElement | null = null;
 
   static get observedAttributes(): string[] {
-    return ['tool-id', 'label', 'icon', 'active']
+    return ["tool-id", "label", "icon", "active"];
   }
 
   constructor() {
-    super()
-    this.attachShadow({ mode: 'open' })
-    const tpl = document.createElement('template')
-    tpl.innerHTML = getToggleTemplate()
-    this.shadowRoot!.appendChild(tpl.content.cloneNode(true))
+    super();
+    this.attachShadow({ mode: "open" });
+    const tpl = document.createElement("template");
+    tpl.innerHTML = getToggleTemplate();
+    this.shadowRoot!.appendChild(tpl.content.cloneNode(true));
   }
 
   connectedCallback(): void {
-    this._button = this.shadowRoot!.querySelector('.asw-btn')
-    this._svg = this.shadowRoot!.querySelector('svg')
-    this._label = this.shadowRoot!.querySelector('.asw-label')
+    this._button = this.shadowRoot!.querySelector(".asw-btn");
+    this._svg = this.shadowRoot!.querySelector("svg");
+    this._label = this.shadowRoot!.querySelector(".asw-label");
 
-    this._button?.addEventListener('click', this._onClick)
+    this._button?.addEventListener("click", this._onClick);
 
-    this._render()
+    this._render();
   }
 
   disconnectedCallback(): void {
-    this._button?.removeEventListener('click', this._onClick)
+    this._button?.removeEventListener("click", this._onClick);
   }
 
   attributeChangedCallback(): void {
-    this._render()
+    this._render();
   }
 
   get toolId(): string {
-    return this.getAttribute('tool-id') ?? ''
+    return this.getAttribute("tool-id") ?? "";
   }
 
   set toolId(val: string) {
-    this.setAttribute('tool-id', val)
+    this.setAttribute("tool-id", val);
   }
 
   get active(): boolean {
-    return this.getAttribute('active') === 'true'
+    return this.getAttribute("active") === "true";
   }
 
   set active(val: boolean) {
-    this.setAttribute('active', String(val))
+    this.setAttribute("active", String(val));
   }
 
   private _onClick = (): void => {
-    this.active = !this.active
-    this.dispatchEvent(new CustomEvent('toggle', {
-      bubbles: true,
-      detail: { toolId: this.toolId, enabled: this.active },
-    }))
-  }
+    this.active = !this.active;
+    this.dispatchEvent(
+      new CustomEvent("toggle", {
+        bubbles: true,
+        detail: { toolId: this.toolId, enabled: this.active },
+      }),
+    );
+  };
 
   private _render(): void {
     // Icon — use Lucide renderIcon which returns full SVG string
-    const iconId = this.getAttribute('icon') ?? ''
+    const iconId = this.getAttribute("icon") ?? "";
     if (this._svg && iconId) {
-      const svgString = renderIcon(iconId)
+      const svgString = renderIcon(iconId);
       if (svgString) {
         // Replace the outer SVG element by setting outerHTML on parent
-        const temp = document.createElement('template')
-        temp.innerHTML = svgString
-        const newSvg = temp.content.firstChild
+        const temp = document.createElement("template");
+        temp.innerHTML = svgString;
+        const newSvg = temp.content.firstChild;
         if (newSvg) {
-          this._svg.replaceWith(newSvg)
-          this._svg = newSvg as SVGElement
+          this._svg.replaceWith(newSvg);
+          this._svg = newSvg as SVGElement;
         }
       }
     }
 
     // Label
-    const label = this.getAttribute('label') ?? ''
+    const label = this.getAttribute("label") ?? "";
     if (this._label) {
-      this._label.textContent = label
+      this._label.textContent = label;
     }
 
     // Active state
-    const isActive = this.getAttribute('active') === 'true'
+    const isActive = this.getAttribute("active") === "true";
     if (this._button) {
-      this._button.classList.toggle('asw-selected', isActive)
+      this._button.classList.toggle("asw-selected", isActive);
     }
   }
 }
 
-if (typeof customElements !== 'undefined' && !customElements.get('asw-toggle')) {
-  customElements.define('asw-toggle', AswToggle)
+if (typeof customElements !== "undefined" && !customElements.get("asw-toggle")) {
+  customElements.define("asw-toggle", AswToggle);
 }

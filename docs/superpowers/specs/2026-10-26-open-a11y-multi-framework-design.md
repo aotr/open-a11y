@@ -11,9 +11,9 @@ Laravel package for Blade and Livewire.
 
 ## Repositories and packages
 
-| Repo | Package | Ecosystem |
-|---|---|---|
-| `aotr/open-a11y` | `@aotr/open-a11y` | npm |
+| Repo                     | Package                  | Ecosystem          |
+| ------------------------ | ------------------------ | ------------------ |
+| `aotr/open-a11y`         | `@aotr/open-a11y`        | npm                |
 | `aotr/open-a11y-laravel` | `aotr/open-a11y-laravel` | Composer/Packagist |
 
 Both repos are new public repositories. The old private repository is left
@@ -24,11 +24,11 @@ display name remains **open-a11y**.
 
 Add optional framework entries:
 
-| Entry | Public API | Peer |
-|---|---|---|
-| `@aotr/open-a11y/react` | Existing provider/hooks/components | `react >=17` |
-| `@aotr/open-a11y/vue` | `createAccessibilityPlugin`, `useAccessibility`, `A11yWidget` | `vue >=3` |
-| `@aotr/open-a11y/svelte` | `createAccessibilityStore`, `accessibilityWidget` | `svelte >=5` |
+| Entry                     | Public API                                                                     | Peer                 |
+| ------------------------- | ------------------------------------------------------------------------------ | -------------------- |
+| `@aotr/open-a11y/react`   | Existing provider/hooks/components                                             | `react >=17`         |
+| `@aotr/open-a11y/vue`     | `createAccessibilityPlugin`, `useAccessibility`, `A11yWidget`                  | `vue >=3`            |
+| `@aotr/open-a11y/svelte`  | `createAccessibilityStore`, `accessibilityWidget`                              | `svelte >=5`         |
 | `@aotr/open-a11y/angular` | `provideAccessibility`, `AccessibilityService`, `AccessibilityWidgetDirective` | `@angular/core >=17` |
 
 All adapter entries import the core entry at runtime. They do not bundle a

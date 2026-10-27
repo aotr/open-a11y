@@ -12,11 +12,11 @@
  */
 export interface IStorageAdapter {
   /** Retrieve a stored value by key */
-  get(key: string): string | null | Promise<string | null>
+  get(key: string): string | null | Promise<string | null>;
 
   /** Persist a value by key */
-  set(key: string, value: string): void | Promise<void>
+  set(key: string, value: string): void | Promise<void>;
 
   /** Remove a stored value by key */
-  remove(key: string): void | Promise<void>
+  remove(key: string): void | Promise<void>;
 }

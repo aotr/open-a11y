@@ -18,10 +18,10 @@
  *   asw:open — Fired when the button is clicked (sidebar should open)
  */
 
-import { renderLucideIcon } from '../icons/lucide'
+import { renderLucideIcon } from "../icons/lucide";
 
 function getTemplate(): string {
-  const iconSvg = renderLucideIcon('accessibility', 32)
+  const iconSvg = renderLucideIcon("accessibility", 32);
   return `
   <style>
     :host {
@@ -88,138 +88,140 @@ function getTemplate(): string {
   >
     ${iconSvg}
   </button>
-`
+`;
 }
 
 // Guard against SSR — HTMLElement is not defined in Node.js
-const _HTMLElement = (typeof HTMLElement !== 'undefined' ? HTMLElement : class {}) as typeof HTMLElement
+const _HTMLElement = (
+  typeof HTMLElement !== "undefined" ? HTMLElement : class {}
+) as typeof HTMLElement;
 
 export class AswWidget extends _HTMLElement {
-  private _button: HTMLButtonElement | null = null
+  private _button: HTMLButtonElement | null = null;
 
   static get observedAttributes(): string[] {
-    return ['position', 'offset-x', 'offset-y', 'button-size', 'show-button', 'aria-expanded']
+    return ["position", "offset-x", "offset-y", "button-size", "show-button", "aria-expanded"];
   }
 
   constructor() {
-    super()
-    this.attachShadow({ mode: 'open' })
-    const tpl = document.createElement('template')
-    tpl.innerHTML = getTemplate()
-    this.shadowRoot!.appendChild(tpl.content.cloneNode(true))
+    super();
+    this.attachShadow({ mode: "open" });
+    const tpl = document.createElement("template");
+    tpl.innerHTML = getTemplate();
+    this.shadowRoot!.appendChild(tpl.content.cloneNode(true));
   }
 
   connectedCallback(): void {
-    this._button = this.shadowRoot!.querySelector('button')
-    this._button?.addEventListener('click', this._onClick)
-    this._applyPosition()
-    this._applyButtonSize()
-    this._applyShowButton()
+    this._button = this.shadowRoot!.querySelector("button");
+    this._button?.addEventListener("click", this._onClick);
+    this._applyPosition();
+    this._applyButtonSize();
+    this._applyShowButton();
 
     // Remove pulse class after animation completes (3 cycles × 1.8s)
     setTimeout(() => {
-      this._button?.classList.remove('asw-pulse')
-    }, 5500)
+      this._button?.classList.remove("asw-pulse");
+    }, 5500);
   }
 
   disconnectedCallback(): void {
-    this._button?.removeEventListener('click', this._onClick)
+    this._button?.removeEventListener("click", this._onClick);
   }
 
   attributeChangedCallback(name: string, _old: string | null, value: string | null): void {
-    if (name === 'aria-expanded') {
-      this._button?.setAttribute('aria-expanded', value ?? 'false')
-    } else if (name === 'button-size') {
-      this._applyButtonSize()
-    } else if (name === 'show-button') {
-      this._applyShowButton()
+    if (name === "aria-expanded") {
+      this._button?.setAttribute("aria-expanded", value ?? "false");
+    } else if (name === "button-size") {
+      this._applyButtonSize();
+    } else if (name === "show-button") {
+      this._applyShowButton();
     } else {
-      this._applyPosition()
+      this._applyPosition();
     }
   }
 
   /** Sync expanded state for ARIA */
   setExpanded(expanded: boolean): void {
-    this.setAttribute('aria-expanded', String(expanded))
+    this.setAttribute("aria-expanded", String(expanded));
   }
 
   /** Show the floating button */
   showButton(): void {
-    this.removeAttribute('hidden')
-    this.setAttribute('show-button', 'true')
+    this.removeAttribute("hidden");
+    this.setAttribute("show-button", "true");
   }
 
   /** Hide the floating button */
   hideButton(): void {
-    this.setAttribute('hidden', '')
-    this.setAttribute('show-button', 'false')
+    this.setAttribute("hidden", "");
+    this.setAttribute("show-button", "false");
   }
 
   /** Check if the button is currently visible */
   get buttonVisible(): boolean {
-    return !this.hasAttribute('hidden')
+    return !this.hasAttribute("hidden");
   }
 
   private _applyButtonSize(): void {
-    const size = this.getAttribute('button-size')
+    const size = this.getAttribute("button-size");
     if (size) {
-      const px = `${size}px`
-      this.style.setProperty('--asw-btn-size', px)
-      const mobile = Math.max(44, Math.round(parseInt(size, 10) * 0.785))
-      this.style.setProperty('--asw-btn-size-mobile', `${mobile}px`)
+      const px = `${size}px`;
+      this.style.setProperty("--asw-btn-size", px);
+      const mobile = Math.max(44, Math.round(parseInt(size, 10) * 0.785));
+      this.style.setProperty("--asw-btn-size-mobile", `${mobile}px`);
     }
   }
 
   private _applyShowButton(): void {
-    const val = this.getAttribute('show-button')
-    if (val === 'false' || val === '0') {
-      this.setAttribute('hidden', '')
+    const val = this.getAttribute("show-button");
+    if (val === "false" || val === "0") {
+      this.setAttribute("hidden", "");
     } else {
-      this.removeAttribute('hidden')
+      this.removeAttribute("hidden");
     }
   }
 
   private _onClick = (e: Event): void => {
-    e.preventDefault()
-    e.stopPropagation()
-    this.dispatchEvent(new CustomEvent('asw:open', { bubbles: true }))
-  }
+    e.preventDefault();
+    e.stopPropagation();
+    this.dispatchEvent(new CustomEvent("asw:open", { bubbles: true }));
+  };
 
   private _applyPosition(): void {
-    const position = this.getAttribute('position') ?? 'bottom-right'
-    const offsetX = parseInt(this.getAttribute('offset-x') ?? '20', 10)
-    const offsetY = parseInt(this.getAttribute('offset-y') ?? '20', 10)
+    const position = this.getAttribute("position") ?? "bottom-right";
+    const offsetX = parseInt(this.getAttribute("offset-x") ?? "20", 10);
+    const offsetY = parseInt(this.getAttribute("offset-y") ?? "20", 10);
 
-    const style: Record<string, string> = {}
+    const style: Record<string, string> = {};
 
     switch (position) {
-      case 'bottom-right':
-        style.bottom = `${offsetY}px`
-        style.right = `${offsetX}px`
-        style.left = 'auto'
-        style.top = 'auto'
-        break
-      case 'top-left':
-        style.top = `${offsetY}px`
-        style.left = `${offsetX}px`
-        style.bottom = 'auto'
-        break
-      case 'top-right':
-        style.top = `${offsetY}px`
-        style.right = `${offsetX}px`
-        style.left = 'auto'
-        style.bottom = 'auto'
-        break
+      case "bottom-right":
+        style.bottom = `${offsetY}px`;
+        style.right = `${offsetX}px`;
+        style.left = "auto";
+        style.top = "auto";
+        break;
+      case "top-left":
+        style.top = `${offsetY}px`;
+        style.left = `${offsetX}px`;
+        style.bottom = "auto";
+        break;
+      case "top-right":
+        style.top = `${offsetY}px`;
+        style.right = `${offsetX}px`;
+        style.left = "auto";
+        style.bottom = "auto";
+        break;
       default: // bottom-left
-        style.bottom = `${offsetY}px`
-        style.left = `${offsetX}px`
-        break
+        style.bottom = `${offsetY}px`;
+        style.left = `${offsetX}px`;
+        break;
     }
 
-    Object.assign(this.style, style)
+    Object.assign(this.style, style);
   }
 }
 
-if (typeof customElements !== 'undefined' && !customElements.get('asw-widget')) {
-  customElements.define('asw-widget', AswWidget)
+if (typeof customElements !== "undefined" && !customElements.get("asw-widget")) {
+  customElements.define("asw-widget", AswWidget);
 }

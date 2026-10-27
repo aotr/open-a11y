@@ -31,12 +31,13 @@ jobs:
       - run: pnpm --dir angular-lib install --frozen-lockfile
       - run: pnpm --dir examples/angular install --frozen-lockfile
       - run: npm run lint
+      - run: npm run typecheck
       - run: npm test
       - run: npm run build
       - run: node scripts/link-self.mjs
       - run: npm run test:dist
-      - run: npx vite build --config examples/vanilla/vite.config.ts
-      - run: npx vite build --config examples/react/vite.config.ts
-      - run: npx vite build --config examples/vue/vite.config.ts
-      - run: npx vite build --config examples/svelte/vite.config.ts
+      - run: npm exec -- vp build examples/vanilla
+      - run: npm exec -- vp build examples/react
+      - run: npm exec -- vp build examples/vue
+      - run: npm exec -- vp build examples/svelte
       - run: pnpm --dir examples/angular build

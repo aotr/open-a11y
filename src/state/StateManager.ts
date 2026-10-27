@@ -11,36 +11,40 @@
  *
  * This is framework-agnostic — works in vanilla JS, React, or Blade views.
  */
-import type { IStorageAdapter } from '../storage/types'
-import type { ISettings, ISettingsStates } from '../types/ISettings'
-import { normalizeStates } from '../tools/manifest'
+import type { IStorageAdapter } from "../storage/types";
+import type { ISettings, ISettingsStates } from "../types/ISettings";
+import { normalizeStates } from "../tools/manifest";
 
 /** Storage key used across all adapters */
-export const STORAGE_KEY = 'asw-user-settings'
+export const STORAGE_KEY = "asw-user-settings";
 
 /** Default settings when nothing is persisted */
 const DEFAULT_SETTINGS: ISettings = {
-  lang: 'en',
+  lang: "en",
   states: {},
-}
+};
 
-export type StateChangeListener = (settings: ISettings) => void
+export type StateChangeListener = (settings: ISettings) => void;
 
 export interface StateManagerOptions {
   /** Called when an async storage adapter rejects a write. */
-  onPersistenceError?: (error: unknown) => void
+  onPersistenceError?: (error: unknown) => void;
 }
 
 export class StateManager {
-  private settings: ISettings
-  private listeners: Set<StateChangeListener> = new Set()
-  private storage: IStorageAdapter
-  private options: StateManagerOptions
-  private pendingPersistence: Promise<void> = Promise.resolve()
+  private settings: ISettings;
+  private listeners: Set<StateChangeListener> = new Set();
+  private storage: IStorageAdapter;
+  private options: StateManagerOptions;
+  private pendingPersistence: Promise<void> = Promise.resolve();
 
-  constructor(storage: IStorageAdapter, initial?: Partial<ISettings>, options: StateManagerOptions = {}) {
-    this.storage = storage
-    this.options = options
+  constructor(
+    storage: IStorageAdapter,
+    initial?: Partial<ISettings>,
+    options: StateManagerOptions = {},
+  ) {
+    this.storage = storage;
+    this.options = options;
     this.settings = {
       ...DEFAULT_SETTINGS,
       ...initial,
@@ -48,31 +52,31 @@ export class StateManager {
         ...DEFAULT_SETTINGS.states,
         ...normalizeStates(initial?.states),
       },
-    }
+    };
   }
 
   // ─── Read ────────────────────────────────────────────────
 
   /** Get a frozen snapshot of current settings */
   getState(): Readonly<ISettings> {
-    return Object.freeze({ ...this.settings, states: { ...this.settings.states } })
+    return Object.freeze({ ...this.settings, states: { ...this.settings.states } });
   }
 
   /** Check if a specific tool is enabled */
   isToolEnabled(toolId: string): boolean {
-    return !!this.settings.states?.[toolId]
+    return !!this.settings.states?.[toolId];
   }
 
   /** Get the value of a specific tool state */
   getToolValue(toolId: string): unknown {
-    return this.settings.states?.[toolId]
+    return this.settings.states?.[toolId];
   }
 
   // ─── Write ───────────────────────────────────────────────
 
   /** Toggle or set a single tool state */
   setTool(key: string, value: unknown): void {
-    this.setMany({ [key]: value })
+    this.setMany({ [key]: value });
   }
 
   /** Batch-write multiple tool states with a single notify and persist. */
@@ -80,18 +84,18 @@ export class StateManager {
     this.settings.states = {
       ...this.settings.states,
       ...normalizeStates(states),
-    }
-    this.settings.updatedAt = new Date().toISOString()
-    this.notify()
-    this.persist()
+    };
+    this.settings.updatedAt = new Date().toISOString();
+    this.notify();
+    this.persist();
   }
 
   /** Change the display language */
   setLanguage(lang: string): void {
-    this.settings.lang = lang
-    this.settings.updatedAt = new Date().toISOString()
-    this.notify()
-    this.persist()
+    this.settings.lang = lang;
+    this.settings.updatedAt = new Date().toISOString();
+    this.notify();
+    this.persist();
   }
 
   /** Reset all settings to defaults */
@@ -99,9 +103,9 @@ export class StateManager {
     this.settings = {
       ...DEFAULT_SETTINGS,
       lang: this.settings.lang, // Preserve language preference
-    }
-    this.notify()
-    this.persist()
+    };
+    this.notify();
+    this.persist();
   }
 
   // ─── Subscriptions ──────────────────────────────────────
@@ -117,10 +121,10 @@ export class StateManager {
    *   // Later: unsub()
    */
   subscribe(listener: StateChangeListener): () => void {
-    this.listeners.add(listener)
+    this.listeners.add(listener);
     return () => {
-      this.listeners.delete(listener)
-    }
+      this.listeners.delete(listener);
+    };
   }
 
   // ─── Persistence ────────────────────────────────────────
@@ -131,23 +135,23 @@ export class StateManager {
       lang: this.settings.lang,
       states: this.settings.states,
       updatedAt: this.settings.updatedAt,
-    })
+    });
 
     try {
-      const result = this.storage.set(STORAGE_KEY, payload)
-      if (result && typeof (result as Promise<void>).then === 'function') {
+      const result = this.storage.set(STORAGE_KEY, payload);
+      if (result && typeof (result as Promise<void>).then === "function") {
         this.pendingPersistence = this.pendingPersistence
           .then(() => result)
-          .catch((error) => this.options.onPersistenceError?.(error))
+          .catch((error) => this.options.onPersistenceError?.(error));
       }
     } catch (error) {
-      this.options.onPersistenceError?.(error)
+      this.options.onPersistenceError?.(error);
     }
   }
 
   /** Wait for queued asynchronous writes to settle (useful for tests and shutdown). */
   async flushPersistence(): Promise<void> {
-    await this.pendingPersistence
+    await this.pendingPersistence;
   }
 
   /**
@@ -155,16 +159,16 @@ export class StateManager {
    * Merges stored settings on top of current defaults.
    */
   async hydrate(): Promise<void> {
-    const raw = this.storage.get(STORAGE_KEY)
-    const value = raw instanceof Promise ? await raw : raw
-    if (value) this.applyStored(value)
+    const raw = this.storage.get(STORAGE_KEY);
+    const value = raw instanceof Promise ? await raw : raw;
+    if (value) this.applyStored(value);
   }
 
   // ─── Internal ───────────────────────────────────────────
 
   private applyStored(raw: string): void {
     try {
-      const stored = JSON.parse(raw) as Partial<ISettings>
+      const stored = JSON.parse(raw) as Partial<ISettings>;
       this.settings = {
         ...DEFAULT_SETTINGS,
         lang: stored.lang ?? DEFAULT_SETTINGS.lang,
@@ -173,21 +177,21 @@ export class StateManager {
           ...normalizeStates(stored.states),
         },
         updatedAt: stored.updatedAt,
-      }
-      this.notify()
+      };
+      this.notify();
     } catch {
       // Corrupted data — stick with defaults
     }
   }
 
   private notify(): void {
-    const snapshot = this.getState()
+    const snapshot = this.getState();
     this.listeners.forEach((listener) => {
       try {
-        listener(snapshot as ISettings)
+        listener(snapshot as ISettings);
       } catch {
         // Prevent one broken listener from blocking others
       }
-    })
+    });
   }
 }

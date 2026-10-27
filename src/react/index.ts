@@ -13,12 +13,12 @@
  * - AccessibilityEngine
  * - createMemoryAdapter / localStorageAdapter
  */
-export { AccessibilityProvider, useAccessibilityContext } from './provider/AccessibilityProvider'
-export type { AccessibilityContextValue } from './provider/AccessibilityProvider'
-export { useAccessibility, useAccessibilityTool, useAccessibilityProfile } from './hooks'
-export { AccessibilityWidget, AccessibilityPanel } from './components'
+export { AccessibilityProvider, useAccessibilityContext } from "./provider/AccessibilityProvider";
+export type { AccessibilityContextValue } from "./provider/AccessibilityProvider";
+export { useAccessibility, useAccessibilityTool, useAccessibilityProfile } from "./hooks";
+export { AccessibilityWidget, AccessibilityPanel } from "./components";
 
 // Re-export core engine & storage so consumers don't hit dual-package type conflicts
-export { AccessibilityEngine } from '../engine/AccessibilityEngine'
-export type { AccessibilityEngineOptions } from '../engine/AccessibilityEngine'
-export { localStorageAdapter, createMemoryAdapter } from '../storage'
+export { AccessibilityEngine } from "../engine/AccessibilityEngine";
+export type { AccessibilityEngineOptions } from "../engine/AccessibilityEngine";
+export { localStorageAdapter, createMemoryAdapter } from "../storage";

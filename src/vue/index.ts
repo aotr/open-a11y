@@ -20,53 +20,53 @@ import {
   type Plugin,
   type PropType,
   type Ref,
-} from 'vue'
-import { AccessibilityEngine } from '../engine/AccessibilityEngine'
-import type { ISettings, ISettingsStates } from '../types/ISettings'
-import type { IAccessibilityConfig } from '../config/accessibility.config'
-import { createAccessibilityUI, type UIOptions } from '../ui/wire-up'
+} from "vue";
+import { AccessibilityEngine } from "../engine/AccessibilityEngine";
+import type { ISettings, ISettingsStates } from "../types/ISettings";
+import type { IAccessibilityConfig } from "../config/accessibility.config";
+import { createAccessibilityUI, type UIOptions } from "../ui/wire-up";
 import {
   destroyActiveAccessibilityUI,
   getActiveAccessibilityUI,
   type AccessibilityUIController,
-} from '../ui/lifecycle'
+} from "../ui/lifecycle";
 
 export interface AccessibilityVueContext {
   /** Reactive settings snapshot. */
-  settings: Readonly<Ref<Readonly<ISettings>>>
+  settings: Readonly<Ref<Readonly<ISettings>>>;
   /** Reactive tool-state map. */
-  states: ComputedRef<ISettingsStates>
-  engine: AccessibilityEngine
-  toggleTool: (toolId: string, enabled?: boolean | number) => void
-  setFontScale: (scale: number) => void
-  setLineHeight: (height: number) => void
-  setLetterSpacing: (spacing: number) => void
-  applyProfile: (profileId: string) => void
-  deactivateProfile: (profileId: string) => void
-  setLanguage: (lang: string) => void
-  reset: () => void
-  isToolEnabled: (toolId: string) => boolean
-  getToolValue: (toolId: string) => unknown
-  showWidget: (options?: UIOptions) => AccessibilityUIController
-  hideWidget: () => void
-  dispose: () => void
+  states: ComputedRef<ISettingsStates>;
+  engine: AccessibilityEngine;
+  toggleTool: (toolId: string, enabled?: boolean | number) => void;
+  setFontScale: (scale: number) => void;
+  setLineHeight: (height: number) => void;
+  setLetterSpacing: (spacing: number) => void;
+  applyProfile: (profileId: string) => void;
+  deactivateProfile: (profileId: string) => void;
+  setLanguage: (lang: string) => void;
+  reset: () => void;
+  isToolEnabled: (toolId: string) => boolean;
+  getToolValue: (toolId: string) => unknown;
+  showWidget: (options?: UIOptions) => AccessibilityUIController;
+  hideWidget: () => void;
+  dispose: () => void;
 }
 
 export interface AccessibilityPluginOptions {
   /** Mount the floating widget when the Vue app is installed (default: false). */
-  showWidgetOnMount?: boolean
+  showWidgetOnMount?: boolean;
   /** Options for the automatically mounted widget. */
-  widgetOptions?: UIOptions
+  widgetOptions?: UIOptions;
 }
 
-const ACCESSIBILITY_KEY: InjectionKey<AccessibilityVueContext> = Symbol('open-a11y')
+const ACCESSIBILITY_KEY: InjectionKey<AccessibilityVueContext> = Symbol("open-a11y");
 
 /** Create a Vue context backed by an existing engine. */
 export function createAccessibilityContext(engine: AccessibilityEngine): AccessibilityVueContext {
-  const settings = shallowRef<Readonly<ISettings>>(engine.settings)
+  const settings = shallowRef<Readonly<ISettings>>(engine.settings);
   const unsubscribe = engine.subscribe((next) => {
-    settings.value = next
-  })
+    settings.value = next;
+  });
 
   const context: AccessibilityVueContext = {
     settings: vueReadonly(settings),
@@ -79,7 +79,7 @@ export function createAccessibilityContext(engine: AccessibilityEngine): Accessi
     applyProfile: (profileId) => engine.applyProfile(profileId),
     deactivateProfile: (profileId) => engine.deactivateProfile(profileId),
     setLanguage: (lang) => {
-      void engine.setLanguage(lang)
+      void engine.setLanguage(lang);
     },
     reset: () => engine.reset(),
     isToolEnabled: (toolId) => engine.isToolEnabled(toolId),
@@ -87,44 +87,46 @@ export function createAccessibilityContext(engine: AccessibilityEngine): Accessi
     showWidget: (options) => createAccessibilityUI(engine, options),
     hideWidget: () => destroyActiveAccessibilityUI(),
     dispose: unsubscribe,
-  }
+  };
 
-  return context
+  return context;
 }
 
 /** Vue plugin: `app.use(createAccessibilityPlugin(engine))`. */
 export function createAccessibilityPlugin(
   engine: AccessibilityEngine,
-  options: AccessibilityPluginOptions = {}
+  options: AccessibilityPluginOptions = {},
 ): Plugin {
   return {
     install(app: App) {
-      const context = createAccessibilityContext(engine)
-      app.provide(ACCESSIBILITY_KEY, context)
+      const context = createAccessibilityContext(engine);
+      app.provide(ACCESSIBILITY_KEY, context);
 
-      let controller: AccessibilityUIController | null = null
-      app.onUnmount(context.dispose)
+      let controller: AccessibilityUIController | null = null;
+      app.onUnmount(context.dispose);
 
-      if (options.showWidgetOnMount && typeof document !== 'undefined' && engine.config.enabled) {
-        controller = context.showWidget(options.widgetOptions)
-        app.onUnmount(() => controller?.destroy())
+      if (options.showWidgetOnMount && typeof document !== "undefined" && engine.config.enabled) {
+        controller = context.showWidget(options.widgetOptions);
+        app.onUnmount(() => controller?.destroy());
       }
     },
-  }
+  };
 }
 
 /** Access the nearest open-a11y Vue context. Must be used under the plugin. */
 export function useAccessibility(): AccessibilityVueContext {
-  const context = inject(ACCESSIBILITY_KEY, null)
+  const context = inject(ACCESSIBILITY_KEY, null);
   if (!context) {
-    throw new Error('useAccessibility() must be used after app.use(createAccessibilityPlugin(engine))')
+    throw new Error(
+      "useAccessibility() must be used after app.use(createAccessibilityPlugin(engine))",
+    );
   }
-  return context
+  return context;
 }
 
 /** Declarative widget component. It renders no markup; the web component does. */
 export const A11yWidget = defineComponent({
-  name: 'A11yWidget',
+  name: "A11yWidget",
   props: {
     options: {
       type: Object as PropType<UIOptions>,
@@ -136,41 +138,41 @@ export const A11yWidget = defineComponent({
     },
   },
   setup(props) {
-    const context = useAccessibility()
-    let controller: AccessibilityUIController | null = null
-    let mounted = false
+    const context = useAccessibility();
+    let controller: AccessibilityUIController | null = null;
+    let mounted = false;
 
     const mount = () => {
-      if (!props.autoMount || typeof document === 'undefined') return
-      if (!context.engine.config.enabled) return
-      controller?.destroy()
-      controller = context.showWidget(props.options)
-    }
+      if (!props.autoMount || typeof document === "undefined") return;
+      if (!context.engine.config.enabled) return;
+      controller?.destroy();
+      controller = context.showWidget(props.options);
+    };
 
     onMounted(() => {
-      mounted = true
-      if (!getActiveAccessibilityUI()) mount()
-    })
+      mounted = true;
+      if (!getActiveAccessibilityUI()) mount();
+    });
 
     watch(
       () => props.options,
       () => {
-        if (mounted) mount()
+        if (mounted) mount();
       },
-      { deep: true }
-    )
+      { deep: true },
+    );
 
     onBeforeUnmount(() => {
-      controller?.destroy()
-      controller = null
-    })
+      controller?.destroy();
+      controller = null;
+    });
 
-    return () => null
+    return () => null;
   },
-})
+});
 
 /** Re-export the core API for single-import convenience. */
-export { AccessibilityEngine } from '../engine/AccessibilityEngine'
-export type { AccessibilityEngineOptions } from '../engine/AccessibilityEngine'
-export { localStorageAdapter, createMemoryAdapter } from '../storage'
-export type { IAccessibilityConfig }
+export { AccessibilityEngine } from "../engine/AccessibilityEngine";
+export type { AccessibilityEngineOptions } from "../engine/AccessibilityEngine";
+export { localStorageAdapter, createMemoryAdapter } from "../storage";
+export type { IAccessibilityConfig };

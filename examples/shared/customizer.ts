@@ -1,41 +1,41 @@
-import type { AccessibilityEngine, IAccessibilityConfig } from '@aotr/open-a11y'
-import { mergeConfig } from '@aotr/open-a11y'
+import type { AccessibilityEngine, IAccessibilityConfig } from "@aotr/open-a11y";
+import { mergeConfig } from "@aotr/open-a11y";
 
 export interface DemoUiState {
-  position: 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right'
-  side: 'left' | 'right'
-  offsetX: number
-  offsetY: number
-  blur: boolean
-  buttonSize: number
-  showButton: boolean
-  primary: string
-  primaryDark: string
-  accent: string
-  footerName: string
-  footerUrl: string
-  footerText: string
-  menuTitle: string
-  language: 'en' | 'hi'
+  position: "bottom-left" | "bottom-right" | "top-left" | "top-right";
+  side: "left" | "right";
+  offsetX: number;
+  offsetY: number;
+  blur: boolean;
+  buttonSize: number;
+  showButton: boolean;
+  primary: string;
+  primaryDark: string;
+  accent: string;
+  footerName: string;
+  footerUrl: string;
+  footerText: string;
+  menuTitle: string;
+  language: "en" | "hi";
 }
 
 export const DEFAULT_DEMO_STATE: DemoUiState = {
-  position: 'bottom-right',
-  side: 'right',
+  position: "bottom-right",
+  side: "right",
   offsetX: 20,
   offsetY: 20,
   blur: true,
   buttonSize: 56,
   showButton: true,
-  primary: '#1f4bd8',
-  primaryDark: '#1739a8',
-  accent: '#b23a25',
-  footerName: 'open-a11y demo',
-  footerUrl: 'https://github.com/aotr/open-a11y',
-  footerText: 'Accessibility tools by open-a11y',
-  menuTitle: 'Accessibility options',
-  language: 'en',
-}
+  primary: "#1f4bd8",
+  primaryDark: "#1739a8",
+  accent: "#b23a25",
+  footerName: "open-a11y demo",
+  footerUrl: "https://github.com/aotr/open-a11y",
+  footerText: "Accessibility tools by open-a11y",
+  menuTitle: "Accessibility options",
+  language: "en",
+};
 
 export function toDemoConfig(state: DemoUiState): IAccessibilityConfig {
   return mergeConfig({
@@ -46,7 +46,7 @@ export function toDemoConfig(state: DemoUiState): IAccessibilityConfig {
     buttonSize: state.buttonSize,
     showButton: state.showButton,
     labels: {
-      'widget.menuTitle': state.menuTitle,
+      "widget.menuTitle": state.menuTitle,
     },
     brand: {
       name: state.footerName,
@@ -56,15 +56,15 @@ export function toDemoConfig(state: DemoUiState): IAccessibilityConfig {
       primaryDark: state.primaryDark,
       accent: state.accent,
     },
-  })
+  });
 }
 
 export function createDemoCustomizer(
   container: HTMLElement,
   initial: DemoUiState,
-  onChange: (state: DemoUiState, key: keyof DemoUiState) => void
+  onChange: (state: DemoUiState, key: keyof DemoUiState) => void,
 ): DemoUiState {
-  const state = { ...initial }
+  const state = { ...initial };
   container.innerHTML = `
     <section class="demo-customizer" aria-labelledby="customizer-title">
       <div class="demo-customizer__head">
@@ -110,8 +110,8 @@ export function createDemoCustomizer(
         <label>Accent color
           <input data-field="accent" type="color" value="${state.accent}" />
         </label>
-        <label class="demo-check"><input data-field="blur" type="checkbox" ${state.blur ? 'checked' : ''}/> Backdrop blur</label>
-        <label class="demo-check"><input data-field="showButton" type="checkbox" ${state.showButton ? 'checked' : ''}/> Show floating button</label>
+        <label class="demo-check"><input data-field="blur" type="checkbox" ${state.blur ? "checked" : ""}/> Backdrop blur</label>
+        <label class="demo-check"><input data-field="showButton" type="checkbox" ${state.showButton ? "checked" : ""}/> Show floating button</label>
         <label class="demo-wide">Menu title
           <input data-field="menuTitle" type="text" value="${state.menuTitle}" />
         </label>
@@ -126,65 +126,73 @@ export function createDemoCustomizer(
         </label>
       </div>
     </section>
-  `
+  `;
 
   const field = <T extends HTMLElement>(name: string) =>
-    container.querySelector<T>(`[data-field="${name}"]`)!
-  const output = (name: string) => container.querySelector<HTMLOutputElement>(`[data-output="${name}"]`)
+    container.querySelector<T>(`[data-field="${name}"]`)!;
+  const output = (name: string) =>
+    container.querySelector<HTMLOutputElement>(`[data-output="${name}"]`);
 
   const sync = (key: keyof DemoUiState) => {
-    const el = field(key)
+    const el = field(key);
     if (el instanceof HTMLInputElement) {
-      state[key] = (el.type === 'checkbox' ? el.checked : el.type === 'range' ? Number(el.value) : el.value) as never
+      state[key] = (
+        el.type === "checkbox" ? el.checked : el.type === "range" ? Number(el.value) : el.value
+      ) as never;
     } else if (el instanceof HTMLSelectElement) {
-      state[key] = el.value as never
+      state[key] = el.value as never;
     }
-    output(key)?.replaceChildren(String(state[key]))
-    onChange({ ...state }, key)
-  }
+    output(key)?.replaceChildren(String(state[key]));
+    onChange({ ...state }, key);
+  };
 
-  container.querySelectorAll<HTMLElement>('[data-field]').forEach((el) => {
-    el.addEventListener('input', () => sync(el.dataset['field'] as keyof DemoUiState))
-    el.addEventListener('change', () => sync(el.dataset['field'] as keyof DemoUiState))
-  })
+  container.querySelectorAll<HTMLElement>("[data-field]").forEach((el) => {
+    el.addEventListener("input", () => sync(el.dataset["field"] as keyof DemoUiState));
+    el.addEventListener("change", () => sync(el.dataset["field"] as keyof DemoUiState));
+  });
 
-  container.querySelector<HTMLButtonElement>('[data-action="reset"]')?.addEventListener('click', () => {
-    Object.assign(state, initial)
-    for (const [key, value] of Object.entries(state)) {
-      const el = field(key)
-      if (el instanceof HTMLInputElement) {
-        if (el.type === 'checkbox') el.checked = Boolean(value)
-        else el.value = String(value)
-      } else if (el instanceof HTMLSelectElement) {
-        el.value = String(value)
+  container
+    .querySelector<HTMLButtonElement>('[data-action="reset"]')
+    ?.addEventListener("click", () => {
+      Object.assign(state, initial);
+      for (const [key, value] of Object.entries(state)) {
+        const el = field(key);
+        if (el instanceof HTMLInputElement) {
+          if (el.type === "checkbox") el.checked = Boolean(value);
+          else el.value = String(value);
+        } else if (el instanceof HTMLSelectElement) {
+          el.value = String(value);
+        }
+        output(key)?.replaceChildren(String(value));
       }
-      output(key)?.replaceChildren(String(value))
-    }
-    onChange({ ...state }, 'menuTitle')
-  })
+      onChange({ ...state }, "menuTitle");
+    });
 
   // Set initial values after the markup is parsed.
   for (const [key, value] of Object.entries(state)) {
-    const el = field(key)
+    const el = field(key);
     if (el instanceof HTMLInputElement) {
-      if (el.type === 'checkbox') el.checked = Boolean(value)
-      else el.value = String(value)
+      if (el.type === "checkbox") el.checked = Boolean(value);
+      else el.value = String(value);
     } else if (el instanceof HTMLSelectElement) {
-      el.value = String(value)
+      el.value = String(value);
     }
-    output(key)?.replaceChildren(String(value))
+    output(key)?.replaceChildren(String(value));
   }
 
-  return state
+  return state;
 }
 
-export function mountStateInspector(container: HTMLElement, engine: AccessibilityEngine): () => void {
-  const pre = document.createElement('pre')
-  pre.className = 'demo-state'
-  container.replaceChildren(pre)
+export function mountStateInspector(
+  container: HTMLElement,
+  engine: AccessibilityEngine,
+): () => void {
+  const pre = document.createElement("pre");
+  pre.className = "demo-state";
+  container.replaceChildren(pre);
   const render = () => {
-    pre.textContent = JSON.stringify(engine.settings, null, 2)
-  }
-  render()
-  return engine.subscribe(render)
+    pre.textContent = JSON.stringify(engine.settings, null, 2);
+  };
+  render();
+  return engine.subscribe(render);
 }

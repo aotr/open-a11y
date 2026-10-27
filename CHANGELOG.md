@@ -2,19 +2,30 @@
 
 All notable changes to `open-a11y` will be documented in this file.
 
+## [2.0.3] — 2026-10-27
+
+### Changed
+
+- Migrated development, checks, tests, and demo builds to Vite+ (`vp check`, `vp test`, `vp dev`, `vp build`)
+- Oxfmt formatting and Oxlint type-aware checks now run through Vite+
+- Examples use Vite+ configs and Vite+ dev/build commands
+
 ## [2.0.2] — 2026-10-27
 
 ### Fixed
+
 - Angular adapter now mounts through `mountAccessibilityWidget()` instead of a directive, so AOT production builds do not depend on linked template metadata
 
 ## [2.0.1] — 2026-10-26
 
 ### Fixed
+
 - Published README and package metadata for the scoped npm package
 
 ## [2.0.0] — 2026-10-26
 
 ### Added
+
 - **Vue 3 adapter** (`@aotr/open-a11y/vue`): plugin, `useAccessibility()`, and `A11yWidget`
 - **Svelte 5 adapter** (`@aotr/open-a11y/svelte`): readable store and `accessibilityWidget` action
 - **Angular adapter** (`@aotr/open-a11y/angular`): `provideAccessibility()`, signal service, and AOT-ready widget directive
@@ -24,6 +35,7 @@ All notable changes to `open-a11y` will be documented in this file.
 - CI workflow for lint, unit tests, build, dist smoke tests, and demo builds
 
 ### Changed
+
 - **Package is published as `@aotr/open-a11y`** with repositories at `aotr/open-a11y` and `aotr/open-a11y-laravel`
 - **Single tool manifest** (`src/tools/manifest.ts`) now drives config defaults, the engine, the web menu, the React panel, and tests
 - **Default visibility is opt-out**: every tool and profile is visible unless explicitly disabled
@@ -36,6 +48,7 @@ All notable changes to `open-a11y` will be documented in this file.
 - React panel and web menu render from the manifest; React icons now render real Lucide SVGs
 
 ### Fixed
+
 - Duplicate external-trigger listeners and observers in `createAccessibilityUI`, plus a destroy path that now removes all listeners
 - Global shortcuts no longer fire while typing in inputs, textareas, selects, or contenteditable elements
 - Escape closes the nested tool-description modal before the sidebar
@@ -48,16 +61,19 @@ All notable changes to `open-a11y` will be documented in this file.
 ## [1.2.0] — 2026-07-16
 
 ### Added
+
 - **Readable Font (Lexend)** — second dyslexia-friendly font option alongside OpenDyslexic
 - `readable-font-alt` tool with Lexend font loaded from Google Fonts
 
 ### Fixed
+
 - **Highlight Links** — images inside links (e.g. footer App Store icons) now get a visible outline
 - Added `a[href] img`, `a[href] svg`, `a[href] picture` to link selectors with `!important` override
 
 ## [1.1.0] — 2026-07-16
 
 ### Added
+
 - **Hide Images** tool — hides all images, videos, and media elements
 - **Reading Mask** tool — translucent overlay with a transparent reading slit that follows the mouse
 - **Screen Reader** tool — adds skip-to-content link and enhances page structure
@@ -68,6 +84,7 @@ All notable changes to `open-a11y` will be documented in this file.
 - Hindi (hi) translations for all new tools and descriptions
 
 ### Changed
+
 - Updated to 7 accessibility profiles (was 6)
 - Updated to 20+ accessibility tools (was 16)
 - `asw-menu.ts`: profiles, content tools, filter tools, and tool buttons now include description keys
@@ -81,6 +98,7 @@ All notable changes to `open-a11y` will be documented in this file.
 ## [1.0.0] — 2026-07-13
 
 ### Added
+
 - Initial public release
 - 16 accessibility tools (font scaling, contrast modes, readability tools, etc.)
 - 6 accessibility profiles (seizure-safe, vision-impaired, ADHD-friendly, etc.)

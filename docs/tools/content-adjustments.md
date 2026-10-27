@@ -15,8 +15,8 @@ Content adjustment tools modify typography and text presentation. Unlike boolean
 ```ts
 // src/tools/content/fontSize.ts
 export function adjustFontSize(scale: number): void {
-  const clamped = Math.max(0.1, Math.min(2.0, scale))
-  document.documentElement.style.setProperty('--asw-font-scale', String(clamped))
+  const clamped = Math.max(0.1, Math.min(2.0, scale));
+  document.documentElement.style.setProperty("--asw-font-scale", String(clamped));
 }
 ```
 
@@ -26,7 +26,9 @@ export function adjustFontSize(scale: number): void {
 
 ```css
 /* In your existing CSS */
-body { font-size: calc(1rem * var(--asw-font-scale, 1)); }
+body {
+  font-size: calc(1rem * var(--asw-font-scale, 1));
+}
 ```
 
 **UI Controls:** The adjustment panel shows +/- buttons with a live percentage display. Each step = ±0.1 (10%).
@@ -51,9 +53,7 @@ body { font-size: calc(1rem * var(--asw-font-scale, 1)); }
 ```ts
 // src/tools/content/fontWeight.ts
 export default function fontWeight(enable: boolean): void {
-  upsertStylesheet('asw-font-weight', enable
-    ? `* { font-weight: 600 !important; }`
-    : '')
+  upsertStylesheet("asw-font-weight", enable ? `* { font-weight: 600 !important; }` : "");
 }
 ```
 
@@ -74,10 +74,12 @@ export default function fontWeight(enable: boolean): void {
 ```ts
 // src/tools/content/lineHeight.ts
 export function adjustLineHeight(value: number): void {
-  upsertStylesheet('asw-line-height',
+  upsertStylesheet(
+    "asw-line-height",
     `body, p, li, td, div, span, a {
        line-height: calc(1em * ${value}) !important;
-     }`)
+     }`,
+  );
 }
 ```
 
@@ -98,10 +100,12 @@ export function adjustLineHeight(value: number): void {
 ```ts
 // src/tools/content/letterSpacing.ts
 export function adjustLetterSpacing(value: number): void {
-  upsertStylesheet('asw-letter-spacing',
+  upsertStylesheet(
+    "asw-letter-spacing",
     `body, p, li, td, div, span, a {
        letter-spacing: ${value}px !important;
-     }`)
+     }`,
+  );
 }
 ```
 
@@ -118,11 +122,14 @@ Same mechanism as line height — regenerates the CSS rule with the current valu
 ```ts
 // src/tools/content/readableFont.ts
 export default function readableFont(enable: boolean): void {
-  upsertStylesheet('asw-readable-font', enable
-    ? `body, p, li, td, div, span, a, h1, h2, h3, h4, h5, h6 {
+  upsertStylesheet(
+    "asw-readable-font",
+    enable
+      ? `body, p, li, td, div, span, a, h1, h2, h3, h4, h5, h6 {
          font-family: 'OpenDyslexic', 'Comic Sans MS', sans-serif !important;
        }`
-    : '')
+      : "",
+  );
 }
 ```
 
@@ -141,11 +148,14 @@ export default function readableFont(enable: boolean): void {
 ```ts
 // src/tools/content/highlightLinks.ts
 export default function highlightLinks(enable: boolean): void {
-  upsertStylesheet('asw-highlight-links', enable
-    ? `a { text-decoration: underline !important;
+  upsertStylesheet(
+    "asw-highlight-links",
+    enable
+      ? `a { text-decoration: underline !important;
            color: #0000EE !important;
            font-weight: 700 !important; }`
-    : '')
+      : "",
+  );
 }
 ```
 
@@ -163,13 +173,16 @@ export default function highlightLinks(enable: boolean): void {
 ```ts
 // src/tools/content/highlightTitles.ts
 export default function highlightTitles(enable: boolean): void {
-  upsertStylesheet('asw-highlight-title', enable
-    ? `h1, h2, h3, h4, h5, h6 {
+  upsertStylesheet(
+    "asw-highlight-title",
+    enable
+      ? `h1, h2, h3, h4, h5, h6 {
          outline: 2px solid #000 !important;
          background: #FFFF00 !important;
          padding: 5px !important;
        }`
-    : '')
+      : "",
+  );
 }
 ```
 
@@ -185,17 +198,17 @@ All boolean tools use `upsertStylesheet()`:
 ```ts
 // src/css/cssInjector.ts
 export function upsertStylesheet(id: string, css: string): void {
-  let el = document.getElementById(id) as HTMLStyleElement | null
+  let el = document.getElementById(id) as HTMLStyleElement | null;
   if (!css) {
-    el?.remove()       // CSS is empty → remove the style tag
-    return
+    el?.remove(); // CSS is empty → remove the style tag
+    return;
   }
   if (!el) {
-    el = document.createElement('style')
-    el.id = id
-    document.head.appendChild(el)
+    el = document.createElement("style");
+    el.id = id;
+    document.head.appendChild(el);
   }
-  el.textContent = css  // Update existing or set new content
+  el.textContent = css; // Update existing or set new content
 }
 ```
 
@@ -212,7 +225,7 @@ Completely hides all images and media elements to reduce visual distraction.
 ```ts
 // src/tools/content/hideImages.ts
 export default function hideImages(enable: boolean): void {
-  injectToolCSS({ ...hideImagesConfig, enable })
+  injectToolCSS({ ...hideImagesConfig, enable });
 }
 ```
 
@@ -220,14 +233,15 @@ export default function hideImages(enable: boolean): void {
 
 ```ts
 export const hideImagesConfig: IToolConfig = {
-  id: 'hide-images',
-  selector: 'html',
-  childrenSelector: ['img', 'picture', 'svg', 'canvas', 'video', '[role="img"]'],
-  styles: { 'display': 'none !important' },
-}
+  id: "hide-images",
+  selector: "html",
+  childrenSelector: ["img", "picture", "svg", "canvas", "video", '[role="img"]'],
+  styles: { display: "none !important" },
+};
 ```
 
 **CSS Generated (ON):**
+
 ```css
 html.asw-hide-images img,
 html.asw-hide-images picture,
@@ -240,6 +254,7 @@ html.asw-hide-images [role="img"] {
 ```
 
 **Use cases:**
+
 - ADHD users overwhelmed by visual clutter
 - Cognitive disabilities where images distract from text comprehension
 - Low-bandwidth connections where images slow down page loading
@@ -256,26 +271,27 @@ Aligns all text content to left, center, right, or justify. Text alignment optio
 **How it works:**
 
 ```ts
-import { enableTextAlignment } from './textAlignment'
+import { enableTextAlignment } from "./textAlignment";
 
 // Enable left alignment
-enableTextAlignment('text-align-left')
+enableTextAlignment("text-align-left");
 // Clear alignment
-enableTextAlignment(false)
+enableTextAlignment(false);
 ```
 
 **Alignment options:**
 
-| Key | CSS Rule | Description |
-|---|---|---|
-| `text-align-left` | `text-align: left` | Align text to the left edge |
-| `text-align-center` | `text-align: center` | Center text horizontally |
-| `text-align-right` | `text-align: right` | Align text to the right edge |
-| `text-justify` | `text-align: justify` | Distribute text evenly between margins |
+| Key                 | CSS Rule              | Description                            |
+| ------------------- | --------------------- | -------------------------------------- |
+| `text-align-left`   | `text-align: left`    | Align text to the left edge            |
+| `text-align-center` | `text-align: center`  | Center text horizontally               |
+| `text-align-right`  | `text-align: right`   | Align text to the right edge           |
+| `text-justify`      | `text-align: justify` | Distribute text evenly between margins |
 
 **Exclusivity:** Text alignment uses the same exclusive pattern as contrast — `TEXT_ALIGN_KEYS` in the engine ensures only one alignment is active at a time.
 
 **CSS Generated (ON for center):**
+
 ```css
 html.asw-text-align p,
 html.asw-text-align h1,

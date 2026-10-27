@@ -10,47 +10,47 @@ The configuration system defines what the accessibility widget CAN do, what feat
 
 ```ts
 interface IAccessibilityConfig {
-  side?: 'right' | 'left'
-  defaultLanguage?: string
-  lang?: string
-  position?: 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right'
-  offset?: [number, number]
-  blur?: boolean
-  enabled?: boolean
-  buttonSize?: number
-  showButton?: boolean
-  triggerSelector?: string
-  brand?: IAccessibilityBrand
-  labels?: Record<string, string>
-  features?: IAccessibilityFeatures
-  hooks?: IAccessibilityHooks
+  side?: "right" | "left";
+  defaultLanguage?: string;
+  lang?: string;
+  position?: "bottom-left" | "bottom-right" | "top-left" | "top-right";
+  offset?: [number, number];
+  blur?: boolean;
+  enabled?: boolean;
+  buttonSize?: number;
+  showButton?: boolean;
+  triggerSelector?: string;
+  brand?: IAccessibilityBrand;
+  labels?: Record<string, string>;
+  features?: IAccessibilityFeatures;
+  hooks?: IAccessibilityHooks;
 }
 ```
 
 ### Layout & Behaviour
 
-| Field | Type | Default | Description |
-|---|---|---|---|
-| `side` | `'right' \| 'left'` | `'right'` | Panel slide direction |
-| `position` | string | `'bottom-right'` | Floating button position |
-| `offset` | `[number, number]` | `[20, 20]` | Button offset from edge in px |
-| `blur` | `boolean` | `false` | Backdrop blur when panel is open |
-| `enabled` | `boolean` | `true` | Master switch — set `false` to disable the entire widget |
-| `buttonSize` | `number` | `56` | Floating button diameter in px (icon scales proportionally) |
-| `showButton` | `boolean` | `true` | Show/hide the floating button (user can override via menu toggle) |
-| `triggerSelector` | `string` | `''` | CSS selector for external trigger elements that toggle the sidebar on click |
-| `brand` | `IAccessibilityBrand` | neutral green | Name, URL, footer copy, and `--asw-brand-*` colors |
-| `labels` | `Record<string, string>` | `{}` | Override any UI string by i18n key (e.g. `widget.menuTitle`) |
+| Field             | Type                     | Default          | Description                                                                 |
+| ----------------- | ------------------------ | ---------------- | --------------------------------------------------------------------------- |
+| `side`            | `'right' \| 'left'`      | `'right'`        | Panel slide direction                                                       |
+| `position`        | string                   | `'bottom-right'` | Floating button position                                                    |
+| `offset`          | `[number, number]`       | `[20, 20]`       | Button offset from edge in px                                               |
+| `blur`            | `boolean`                | `false`          | Backdrop blur when panel is open                                            |
+| `enabled`         | `boolean`                | `true`           | Master switch — set `false` to disable the entire widget                    |
+| `buttonSize`      | `number`                 | `56`             | Floating button diameter in px (icon scales proportionally)                 |
+| `showButton`      | `boolean`                | `true`           | Show/hide the floating button (user can override via menu toggle)           |
+| `triggerSelector` | `string`                 | `''`             | CSS selector for external trigger elements that toggle the sidebar on click |
+| `brand`           | `IAccessibilityBrand`    | neutral green    | Name, URL, footer copy, and `--asw-brand-*` colors                          |
+| `labels`          | `Record<string, string>` | `{}`             | Override any UI string by i18n key (e.g. `widget.menuTitle`)                |
 
 ### Features
 
 ```ts
 interface IAccessibilityFeatures {
-  tools?: Record<string, boolean>     // 'font-size': true/false
-  profiles?: Record<string, boolean>  // 'vision-impaired': true/false
-  languageChange?: boolean            // Show language switcher
-  shortcuts?: boolean                 // Show keyboard shortcuts card
-  hideButtonToggle?: boolean          // Show "Hide floating button" toggle near the bottom of the panel
+  tools?: Record<string, boolean>; // 'font-size': true/false
+  profiles?: Record<string, boolean>; // 'vision-impaired': true/false
+  languageChange?: boolean; // Show language switcher
+  shortcuts?: boolean; // Show keyboard shortcuts card
+  hideButtonToggle?: boolean; // Show "Hide floating button" toggle near the bottom of the panel
 }
 ```
 
@@ -63,11 +63,11 @@ interface IAccessibilityFeatures {
 ```ts
 interface IAccessibilityHooks {
   onAction?: (event: {
-    action: string         // 'toggle-tool' | 'apply-profile' | 'change-language' | 'reset'
-    id?: string
-    value?: unknown
-    states: Record<string, unknown>  // Full state snapshot
-  }) => void
+    action: string; // 'toggle-tool' | 'apply-profile' | 'change-language' | 'reset'
+    id?: string;
+    value?: unknown;
+    states: Record<string, unknown>; // Full state snapshot
+  }) => void;
 }
 ```
 
@@ -79,23 +79,23 @@ The `onAction` callback fires after every user interaction. Use it for analytics
 
 ```ts
 export const DEFAULT_ACCESSIBILITY_CONFIG: Required<IAccessibilityConfig> = {
-  side: 'right',
-  defaultLanguage: 'en',
-  lang: 'en',
-  position: 'bottom-right',
+  side: "right",
+  defaultLanguage: "en",
+  lang: "en",
+  position: "bottom-right",
   offset: [20, 20],
   blur: false,
   enabled: true,
   buttonSize: 56,
   showButton: true,
-  triggerSelector: '',
+  triggerSelector: "",
   brand: {
-    name: '',
-    url: '',
+    name: "",
+    url: "",
     // footerText omitted: falls back to "Accessibility by {name}"
-    primary: 'hsl(158, 64%, 35%)',
-    primaryDark: 'hsl(158, 64%, 28%)',
-    accent: 'hsl(47.9, 95.8%, 53.1%)',
+    primary: "hsl(158, 64%, 35%)",
+    primaryDark: "hsl(158, 64%, 28%)",
+    accent: "hsl(47.9, 95.8%, 53.1%)",
   },
   labels: {},
   features: {
@@ -110,7 +110,7 @@ export const DEFAULT_ACCESSIBILITY_CONFIG: Required<IAccessibilityConfig> = {
   hooks: {
     onAction: () => {},
   },
-}
+};
 ```
 
 **Design philosophy:** All tools and profiles are visible by default. Projects opt out of the features they don't want. This is the inverse of the old opt-in model, which silently hid tools whenever the manifest grew.
@@ -125,8 +125,8 @@ or an already-resolved engine config:
 ```ts
 export function mergeConfig(
   custom?: IAccessibilityConfig,
-  base: Required<IAccessibilityConfig> = DEFAULT_ACCESSIBILITY_CONFIG
-): Required<IAccessibilityConfig>
+  base: Required<IAccessibilityConfig> = DEFAULT_ACCESSIBILITY_CONFIG,
+): Required<IAccessibilityConfig>;
 ```
 
 `custom` wins, then `base`, then package defaults. Objects merge shallowly:
@@ -135,25 +135,25 @@ unspecified base keys.
 
 ### Merge Rules
 
-| Pattern | Example | Result |
-|---|---|---|
-| `??` nullish coalescing | `custom.side ?? base.side` | Custom if provided, else base |
-| Spread for objects | `{ ...base.brand, ...custom.brand }` | Custom keys override base keys |
-| Side → position inference | `custom.side === 'left' ? 'bottom-left' : ...` | Position follows an explicit side change |
-| `lang` / `defaultLanguage` fallback | `custom.lang ?? custom.defaultLanguage ?? base.lang` | Three-level fallback |
-| Deep clone | `cloneConfig(base)` | The engine snapshot is never mutated |
+| Pattern                             | Example                                              | Result                                   |
+| ----------------------------------- | ---------------------------------------------------- | ---------------------------------------- |
+| `??` nullish coalescing             | `custom.side ?? base.side`                           | Custom if provided, else base            |
+| Spread for objects                  | `{ ...base.brand, ...custom.brand }`                 | Custom keys override base keys           |
+| Side → position inference           | `custom.side === 'left' ? 'bottom-left' : ...`       | Position follows an explicit side change |
+| `lang` / `defaultLanguage` fallback | `custom.lang ?? custom.defaultLanguage ?? base.lang` | Three-level fallback                     |
+| Deep clone                          | `cloneConfig(base)`                                  | The engine snapshot is never mutated     |
 
 ### Example
 
 ```ts
 const config = mergeConfig({
-  side: 'left',
+  side: "left",
   blur: false,
   features: {
-    tools: { 'monochrome': true, 'readable-font': true },
+    tools: { monochrome: true, "readable-font": true },
     languageChange: true,
   },
-})
+});
 
 // Result:
 // side: 'left'
@@ -173,13 +173,13 @@ const config = mergeConfig({
 // AccessibilityEngine constructor
 const engine = new AccessibilityEngine({
   storage: localStorageAdapter,
-  config: mergeConfig({ side: 'left' }),
-})
+  config: mergeConfig({ side: "left" }),
+});
 
 // UI adapters consume the resolved snapshot
-const merged = engine.config
-menu.setFeatures(merged.features)
-if (!merged.blur) menu.setAttribute('no-blur', '')
+const merged = engine.config;
+menu.setFeatures(merged.features);
+if (!merged.blur) menu.setAttribute("no-blur", "");
 ```
 
 The engine resolves config **once**. `createAccessibilityUI`, the provider, and the
@@ -193,19 +193,19 @@ without passing the engine snapshot.
 
 ```ts
 // src/config/accessibility.config.ts (in YOUR project)
-import { mergeConfig } from '@aotr/open-a11y'
+import { mergeConfig } from "@aotr/open-a11y";
 
 export default mergeConfig({
-  side: 'right',
+  side: "right",
   features: {
     tools: {
-      'monochrome': true,
-      'readable-font': true,
-      'highlight-links': true,
+      monochrome: true,
+      "readable-font": true,
+      "highlight-links": true,
     },
     languageChange: true,
   },
-})
+});
 ```
 
 This is the recommended pattern. The package provides defaults via `mergeConfig()`;

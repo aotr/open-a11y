@@ -14,38 +14,37 @@ Unlike other tools, contrast modes use a **single string value** (`contrast`) in
 
 **Available modes:**
 
-| Mode | CSS Filter | Use Case |
-|---|---|---|
-| `dark-contrast` | `invert(1) hue-rotate(180deg)` | Light text on dark background |
-| `light-contrast` | Reduced contrast, soft palette | Light sensitivity |
-| `high-contrast` | `contrast(200%) brightness(110%)` | Maximum readability |
-| `high-saturation` | `saturate(200%)` | Better color differentiation |
-| `low-saturation` | `saturate(20%)` | Reduced visual stimulation |
-| `monochrome` | `grayscale(100%)` | Complete color removal |
+| Mode              | CSS Filter                        | Use Case                      |
+| ----------------- | --------------------------------- | ----------------------------- |
+| `dark-contrast`   | `invert(1) hue-rotate(180deg)`    | Light text on dark background |
+| `light-contrast`  | Reduced contrast, soft palette    | Light sensitivity             |
+| `high-contrast`   | `contrast(200%) brightness(110%)` | Maximum readability           |
+| `high-saturation` | `saturate(200%)`                  | Better color differentiation  |
+| `low-saturation`  | `saturate(20%)`                   | Reduced visual stimulation    |
+| `monochrome`      | `grayscale(100%)`                 | Complete color removal        |
 
 **How it works:**
 
 ```ts
 // src/tools/color/contrast.ts
 const FILTERS: Record<string, string> = {
-  'dark-contrast': 'invert(1) hue-rotate(180deg)',
-  'light-contrast': 'brightness(110%) contrast(90%)',
-  'high-contrast': 'contrast(200%) brightness(110%)',
-  'high-saturation': 'saturate(200%)',
-  'low-saturation': 'saturate(20%)',
-  'monochrome': 'grayscale(100%)',
-}
+  "dark-contrast": "invert(1) hue-rotate(180deg)",
+  "light-contrast": "brightness(110%) contrast(90%)",
+  "high-contrast": "contrast(200%) brightness(110%)",
+  "high-saturation": "saturate(200%)",
+  "low-saturation": "saturate(20%)",
+  monochrome: "grayscale(100%)",
+};
 
 export function enableContrast(mode: string | false): void {
   if (mode === false) {
     // Remove all contrast filters
-    upsertStylesheet('asw-contrast', '')
-    return
+    upsertStylesheet("asw-contrast", "");
+    return;
   }
-  const filter = FILTERS[mode]
+  const filter = FILTERS[mode];
   if (filter) {
-    upsertStylesheet('asw-contrast',
-      `html { filter: ${filter} !important; }`)
+    upsertStylesheet("asw-contrast", `html { filter: ${filter} !important; }`);
   }
 }
 ```
@@ -73,16 +72,20 @@ This ensures only ONE filter is applied to `<html>` at any time.
 ```ts
 // src/tools/color/invert.ts
 export default function invert(enable: boolean): void {
-  upsertStylesheet('asw-invert', enable
-    ? `html { filter: invert(1) hue-rotate(180deg) !important; }
+  upsertStylesheet(
+    "asw-invert",
+    enable
+      ? `html { filter: invert(1) hue-rotate(180deg) !important; }
        img, video, canvas { filter: invert(1) hue-rotate(180deg) !important; }`
-    : '')
+      : "",
+  );
 }
 ```
 
 **Key detail:** Images, videos, and canvas elements get a **double inversion** — inverting the already-inverted parent restores their original colors. Without this, photos would appear with negative colors.
 
 **CSS cascade:**
+
 ```
 html → invert(1)        [everything inverted]
   img → invert(1)       [re-inverted → looks normal]

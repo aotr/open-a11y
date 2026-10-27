@@ -1,16 +1,17 @@
 {
   "name": "@open-a11y/example-vanilla",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build"
+    "dev": "vp dev",
+    "build": "vp build"
   },
   "dependencies": {
     "@aotr/open-a11y": "file:../.."
   },
   "devDependencies": {
-    "vite": "^8.3.5"
+    "vite": "^8.3.5",
+    "vite-plus": "1.4.0"
   }
 }

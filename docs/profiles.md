@@ -11,11 +11,11 @@ Profiles are **batch tool configurations** designed for specific accessibility n
 ```ts
 // src/profiles/types.ts
 interface IProfile {
-  id: string              // Unique identifier ('vision-impaired')
-  label: string           // i18n key for display name
-  description: string     // i18n key for tooltip/description
-  icon: string            // Icon key from the sprite sheet
-  states: Record<string, unknown> // Tool states to apply
+  id: string; // Unique identifier ('vision-impaired')
+  label: string; // i18n key for display name
+  description: string; // i18n key for tooltip/description
+  icon: string; // Icon key from the sprite sheet
+  states: Record<string, unknown>; // Tool states to apply
 }
 ```
 
@@ -208,17 +208,18 @@ states: {
 ```ts
 // src/profiles/index.ts
 export const PROFILES: Record<string, IProfile> = {
-  'seizure-safe': seizureSafeProfile,
-  'vision-impaired': visionImpairedProfile,
-  'adhd-friendly': adhdFriendlyProfile,
-  'cognitive-disability': cognitiveDisabilityProfile,
-  'keyboard-navigation': keyboardNavigationProfile,
-  'blind-users': blindUsersProfile,
-  'motor-impaired': motorImpairedProfile,
-}
+  "seizure-safe": seizureSafeProfile,
+  "vision-impaired": visionImpairedProfile,
+  "adhd-friendly": adhdFriendlyProfile,
+  "cognitive-disability": cognitiveDisabilityProfile,
+  "keyboard-navigation": keyboardNavigationProfile,
+  "blind-users": blindUsersProfile,
+  "motor-impaired": motorImpairedProfile,
+};
 ```
 
 **Extensibility:** To add a new profile:
+
 1. Create `src/profiles/myNewProfile.ts` following the `IProfile` interface
 2. Export from `src/profiles/index.ts` and add to `PROFILES` map
 3. Add the icon to the sprite sheet
@@ -233,7 +234,7 @@ When a user manually toggles any individual tool, the active profile is cleared:
 ```ts
 // In engine.toggleTool():
 if (this.stateManager.getState().states?.activeProfile) {
-  this.stateManager.setTool('activeProfile', null)
+  this.stateManager.setTool("activeProfile", null);
 }
 ```
 

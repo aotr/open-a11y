@@ -7,33 +7,33 @@
  *     <button onClick={() => apply('seizure-safe')}>Seizure Safe</button>
  *   )
  */
-'use client'
+"use client";
 
-import { useCallback, useMemo } from 'react'
-import { useAccessibilityContext } from '../provider/AccessibilityProvider'
-import { PROFILES } from '../../profiles'
+import { useCallback, useMemo } from "react";
+import { useAccessibilityContext } from "../provider/AccessibilityProvider";
+import { PROFILES } from "../../profiles";
 
 export function useAccessibilityProfile() {
-  const ctx = useAccessibilityContext()
+  const ctx = useAccessibilityContext();
 
   const apply = useCallback(
     (profileId: string) => {
-      ctx.applyProfile(profileId)
+      ctx.applyProfile(profileId);
     },
-    [ctx]
-  )
+    [ctx],
+  );
 
-  const availableProfiles = useMemo(() => Object.values(PROFILES), [])
+  const availableProfiles = useMemo(() => Object.values(PROFILES), []);
 
   const isProfileActive = useCallback(
     (profileId: string): boolean => {
-      const profile = PROFILES[profileId]
-      if (!profile) return false
-      const states = ctx.settings.states ?? {}
-      return Object.entries(profile.states).every(([key, val]) => states[key] === val)
+      const profile = PROFILES[profileId];
+      if (!profile) return false;
+      const states = ctx.settings.states ?? {};
+      return Object.entries(profile.states).every(([key, val]) => states[key] === val);
     },
-    [ctx.settings.states]
-  )
+    [ctx.settings.states],
+  );
 
   return {
     /** Apply a profile by ID */
@@ -42,5 +42,5 @@ export function useAccessibilityProfile() {
     availableProfiles,
     /** Check if a profile's states match current settings */
     isProfileActive,
-  }
+  };
 }

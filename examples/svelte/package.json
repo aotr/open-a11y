@@ -1,11 +1,11 @@
 {
   "name": "@open-a11y/example-svelte",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build"
+    "dev": "vp dev",
+    "build": "vp build"
   },
   "dependencies": {
     "@aotr/open-a11y": "file:../..",
@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^7.3.1",
-    "vite": "^8.3.5"
+    "vite": "^8.3.5",
+    "vite-plus": "1.4.0"
   }
 }

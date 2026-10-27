@@ -13,17 +13,14 @@ import {
   type EnvironmentProviders,
   type OnDestroy,
   type Signal,
-} from '@angular/core'
-import { AccessibilityEngine } from '../engine/AccessibilityEngine'
-import type { ISettings, ISettingsStates } from '../types/ISettings'
-import type { UIOptions } from '../ui/wire-up'
-import { createAccessibilityUI } from '../ui/wire-up'
-import {
-  destroyActiveAccessibilityUI,
-  type AccessibilityUIController,
-} from '../ui/lifecycle'
+} from "@angular/core";
+import { AccessibilityEngine } from "../engine/AccessibilityEngine";
+import type { ISettings, ISettingsStates } from "../types/ISettings";
+import type { UIOptions } from "../ui/wire-up";
+import { createAccessibilityUI } from "../ui/wire-up";
+import { destroyActiveAccessibilityUI, type AccessibilityUIController } from "../ui/lifecycle";
 
-export const ACCESSIBILITY_ENGINE = new InjectionToken<AccessibilityEngine>('open-a11y.engine')
+export const ACCESSIBILITY_ENGINE = new InjectionToken<AccessibilityEngine>("open-a11y.engine");
 
 /** Register an engine with Angular's injector. */
 export function provideAccessibility(engine: AccessibilityEngine): EnvironmentProviders {
@@ -34,80 +31,80 @@ export function provideAccessibility(engine: AccessibilityEngine): EnvironmentPr
       useFactory: (activeEngine: AccessibilityEngine) => new AccessibilityService(activeEngine),
       deps: [ACCESSIBILITY_ENGINE],
     },
-  ])
+  ]);
 }
 
 @Injectable()
 export class AccessibilityService implements OnDestroy {
-  private readonly engine: AccessibilityEngine
-  private readonly snapshot: ReturnType<typeof signal<Readonly<ISettings>>>
-  private readonly unsubscribe: () => void
+  private readonly engine: AccessibilityEngine;
+  private readonly snapshot: ReturnType<typeof signal<Readonly<ISettings>>>;
+  private readonly unsubscribe: () => void;
 
-  readonly settings: Signal<Readonly<ISettings>>
-  readonly states: Signal<ISettingsStates>
+  readonly settings: Signal<Readonly<ISettings>>;
+  readonly states: Signal<ISettingsStates>;
 
   constructor(engine: AccessibilityEngine) {
-    this.engine = engine
-    this.snapshot = signal<Readonly<ISettings>>(engine.settings)
-    this.settings = this.snapshot.asReadonly()
-    this.states = computed(() => this.snapshot().states ?? {})
-    this.unsubscribe = engine.subscribe((next) => this.snapshot.set(next))
+    this.engine = engine;
+    this.snapshot = signal<Readonly<ISettings>>(engine.settings);
+    this.settings = this.snapshot.asReadonly();
+    this.states = computed(() => this.snapshot().states ?? {});
+    this.unsubscribe = engine.subscribe((next) => this.snapshot.set(next));
   }
 
   toggleTool(toolId: string, enabled?: boolean | number): void {
-    this.engine.toggleTool(toolId, enabled)
+    this.engine.toggleTool(toolId, enabled);
   }
 
   setFontScale(scale: number): void {
-    this.engine.setFontScale(scale)
+    this.engine.setFontScale(scale);
   }
 
   setLineHeight(height: number): void {
-    this.engine.setLineHeight(height)
+    this.engine.setLineHeight(height);
   }
 
   setLetterSpacing(spacing: number): void {
-    this.engine.setLetterSpacing(spacing)
+    this.engine.setLetterSpacing(spacing);
   }
 
   applyProfile(profileId: string): void {
-    this.engine.applyProfile(profileId)
+    this.engine.applyProfile(profileId);
   }
 
   deactivateProfile(profileId: string): void {
-    this.engine.deactivateProfile(profileId)
+    this.engine.deactivateProfile(profileId);
   }
 
   setLanguage(lang: string): void {
-    void this.engine.setLanguage(lang)
+    void this.engine.setLanguage(lang);
   }
 
   reset(): void {
-    this.engine.reset()
+    this.engine.reset();
   }
 
   isToolEnabled(toolId: string): boolean {
-    return this.engine.isToolEnabled(toolId)
+    return this.engine.isToolEnabled(toolId);
   }
 
   getToolValue(toolId: string): unknown {
-    return this.engine.getToolValue(toolId)
+    return this.engine.getToolValue(toolId);
   }
 
   showWidget(options?: UIOptions): AccessibilityUIController {
-    return createAccessibilityUI(this.engine, options)
+    return createAccessibilityUI(this.engine, options);
   }
 
   hideWidget(): void {
-    destroyActiveAccessibilityUI()
+    destroyActiveAccessibilityUI();
   }
 
   getEngine(): AccessibilityEngine {
-    return this.engine
+    return this.engine;
   }
 
   ngOnDestroy(): void {
-    this.unsubscribe()
+    this.unsubscribe();
   }
 }
 
@@ -121,10 +118,10 @@ export function mountAccessibilityWidget(
   service: AccessibilityService,
   options?: UIOptions,
 ): AccessibilityUIController {
-  return service.showWidget(options)
+  return service.showWidget(options);
 }
 
 /** Re-export the core API for single-import convenience. */
-export { AccessibilityEngine } from '../engine/AccessibilityEngine'
-export type { AccessibilityEngineOptions } from '../engine/AccessibilityEngine'
-export { localStorageAdapter, createMemoryAdapter } from '../storage'
+export { AccessibilityEngine } from "../engine/AccessibilityEngine";
+export type { AccessibilityEngineOptions } from "../engine/AccessibilityEngine";
+export { localStorageAdapter, createMemoryAdapter } from "../storage";

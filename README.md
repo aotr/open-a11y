@@ -32,14 +32,14 @@ for Vanilla JS, React, Vue, Svelte, Angular, Laravel Blade, and Livewire.
 
 ## Adapters
 
-| Runtime | Entry | Peer dependency |
-|---|---|---|
-| Vanilla / Web Components | `@aotr/open-a11y` | none |
-| React | `@aotr/open-a11y/react` | `react >=17` |
-| Vue | `@aotr/open-a11y/vue` | `vue >=3.5` |
-| Svelte | `@aotr/open-a11y/svelte` | `svelte >=5` |
-| Angular | `@aotr/open-a11y/angular` | `@angular/core >=17` |
-| Laravel Blade + Livewire | [`aotr/open-a11y-laravel`](https://github.com/aotr/open-a11y-laravel) | PHP 8.2+ |
+| Runtime                  | Entry                                                                 | Peer dependency      |
+| ------------------------ | --------------------------------------------------------------------- | -------------------- |
+| Vanilla / Web Components | `@aotr/open-a11y`                                                     | none                 |
+| React                    | `@aotr/open-a11y/react`                                               | `react >=17`         |
+| Vue                      | `@aotr/open-a11y/vue`                                                 | `vue >=3.5`          |
+| Svelte                   | `@aotr/open-a11y/svelte`                                              | `svelte >=5`         |
+| Angular                  | `@aotr/open-a11y/angular`                                             | `@angular/core >=17` |
+| Laravel Blade + Livewire | [`aotr/open-a11y-laravel`](https://github.com/aotr/open-a11y-laravel) | PHP 8.2+             |
 
 ## Install
 
@@ -60,18 +60,18 @@ import {
   localStorageAdapter,
   createAccessibilityUI,
   mergeConfig,
-} from '@aotr/open-a11y'
+} from "@aotr/open-a11y";
 
 const engine = new AccessibilityEngine({
   storage: localStorageAdapter,
   config: mergeConfig({
-    position: 'bottom-right',
-    brand: { primary: '#0f6b4f', accent: '#d4a13a' },
+    position: "bottom-right",
+    brand: { primary: "#0f6b4f", accent: "#d4a13a" },
   }),
-})
+});
 
-await engine.init()
-createAccessibilityUI(engine)
+await engine.init();
+createAccessibilityUI(engine);
 ```
 
 The widget is a pair of web components (`<asw-widget>` and `<asw-menu>`), so it
@@ -80,12 +80,12 @@ works in any framework or plain HTML.
 ### React
 
 ```tsx
-'use client'
+"use client";
 
-import { AccessibilityEngine, localStorageAdapter } from '@aotr/open-a11y'
-import { AccessibilityProvider, AccessibilityWidget } from '@aotr/open-a11y/react'
+import { AccessibilityEngine, localStorageAdapter } from "@aotr/open-a11y";
+import { AccessibilityProvider, AccessibilityWidget } from "@aotr/open-a11y/react";
 
-const engine = new AccessibilityEngine({ storage: localStorageAdapter })
+const engine = new AccessibilityEngine({ storage: localStorageAdapter });
 
 export function Root({ children }) {
   return (
@@ -93,22 +93,22 @@ export function Root({ children }) {
       <AccessibilityWidget />
       {children}
     </AccessibilityProvider>
-  )
+  );
 }
 ```
 
 ### Vue
 
 ```ts
-import { createApp } from 'vue'
-import { AccessibilityEngine, localStorageAdapter } from '@aotr/open-a11y'
-import { createAccessibilityPlugin } from '@aotr/open-a11y/vue'
+import { createApp } from "vue";
+import { AccessibilityEngine, localStorageAdapter } from "@aotr/open-a11y";
+import { createAccessibilityPlugin } from "@aotr/open-a11y/vue";
 
-const engine = new AccessibilityEngine({ storage: localStorageAdapter })
-const app = createApp(App)
+const engine = new AccessibilityEngine({ storage: localStorageAdapter });
+const app = createApp(App);
 
-app.use(createAccessibilityPlugin(engine, { showWidgetOnMount: true }))
-app.mount('#app')
+app.use(createAccessibilityPlugin(engine, { showWidgetOnMount: true }));
+app.mount("#app");
 ```
 
 Use `useAccessibility()` inside any component for reactive settings and actions.
@@ -131,29 +131,29 @@ Use `useAccessibility()` inside any component for reactive settings and actions.
 ### Angular
 
 ```ts
-import { bootstrapApplication } from '@angular/platform-browser'
-import { provideAccessibility } from '@aotr/open-a11y/angular'
-import { AccessibilityEngine, localStorageAdapter } from '@aotr/open-a11y'
-import { App } from './app'
+import { bootstrapApplication } from "@angular/platform-browser";
+import { provideAccessibility } from "@aotr/open-a11y/angular";
+import { AccessibilityEngine, localStorageAdapter } from "@aotr/open-a11y";
+import { App } from "./app";
 
-const engine = new AccessibilityEngine({ storage: localStorageAdapter })
+const engine = new AccessibilityEngine({ storage: localStorageAdapter });
 
-await engine.init()
+await engine.init();
 bootstrapApplication(App, {
   providers: [provideAccessibility(engine)],
-})
+});
 ```
 
 ```ts
-import { Component, afterNextRender, inject } from '@angular/core'
-import { AccessibilityService, mountAccessibilityWidget } from '@aotr/open-a11y/angular'
+import { Component, afterNextRender, inject } from "@angular/core";
+import { AccessibilityService, mountAccessibilityWidget } from "@aotr/open-a11y/angular";
 
-@Component({ selector: 'app-root', template: '' })
+@Component({ selector: "app-root", template: "" })
 export class App {
-  readonly service = inject(AccessibilityService)
+  readonly service = inject(AccessibilityService);
 
   constructor() {
-    afterNextRender(() => mountAccessibilityWidget(this.service, { side: 'right' }))
+    afterNextRender(() => mountAccessibilityWidget(this.service, { side: "right" }));
   }
 }
 ```
@@ -176,33 +176,33 @@ reactive Livewire controls. See the
 ## Configuration
 
 ```ts
-import { mergeConfig } from '@aotr/open-a11y'
+import { mergeConfig } from "@aotr/open-a11y";
 
 const config = mergeConfig({
-  side: 'right',
-  position: 'bottom-right',
+  side: "right",
+  position: "bottom-right",
   offset: [20, 20],
   blur: true,
   buttonSize: 56,
   showButton: true,
-  defaultLanguage: 'en',
+  defaultLanguage: "en",
   labels: {
-    'widget.menuTitle': 'Accessibility options',
+    "widget.menuTitle": "Accessibility options",
   },
   brand: {
-    name: 'Acme',
-    url: 'https://example.com',
-    footerText: 'Accessibility tools by Acme',
-    primary: '#0f6b4f',
-    primaryDark: '#0a4a37',
-    accent: '#d4a13a',
+    name: "Acme",
+    url: "https://example.com",
+    footerText: "Accessibility tools by Acme",
+    primary: "#0f6b4f",
+    primaryDark: "#0a4a37",
+    accent: "#d4a13a",
   },
   features: {
-    tools: { 'dark-contrast': false },
-    profiles: { 'seizure-safe': true },
+    tools: { "dark-contrast": false },
+    profiles: { "seizure-safe": true },
     languageChange: true,
   },
-})
+});
 ```
 
 Explicit `createAccessibilityUI(engine, options)` values override the engine
@@ -230,9 +230,9 @@ Legacy keys such as `'high-contrast': true` are migrated during hydration.
 ### CSP nonce
 
 ```ts
-import { setStyleNonce } from '@aotr/open-a11y'
+import { setStyleNonce } from "@aotr/open-a11y";
 
-setStyleNonce(document.querySelector<HTMLMetaElement>('meta[name="csp-nonce"]')?.content)
+setStyleNonce(document.querySelector<HTMLMetaElement>('meta[name="csp-nonce"]')?.content);
 ```
 
 Every injected accessibility stylesheet carries the nonce.
@@ -244,13 +244,13 @@ Try the hosted demos at **[aotr.github.io/open-a11y](https://aotr.github.io/open
 Each demo is a standalone app with the same customization panel and state
 inspector:
 
-| Adapter | Command | URL |
-|---|---|---|
-| Vanilla | `npm run demo:vanilla` | http://localhost:4174 |
-| React | `npm run demo:react` | http://localhost:4175 |
-| Vue | `npm run demo:vue` | http://localhost:4176 |
-| Svelte | `npm run demo:svelte` | http://localhost:4177 |
-| Angular | `npm run demo:angular` | http://localhost:4178 |
+| Adapter          | Command                                                       | URL                   |
+| ---------------- | ------------------------------------------------------------- | --------------------- |
+| Vanilla          | `npm run demo:vanilla`                                        | http://localhost:4174 |
+| React            | `npm run demo:react`                                          | http://localhost:4175 |
+| Vue              | `npm run demo:vue`                                            | http://localhost:4176 |
+| Svelte           | `npm run demo:svelte`                                         | http://localhost:4177 |
+| Angular          | `npm run demo:angular`                                        | http://localhost:4178 |
 | Blade + Livewire | see [Laravel repo](https://github.com/aotr/open-a11y-laravel) | http://localhost:4179 |
 
 Run `npm run build:demos` to assemble all apps into `site/`, or `npm run build` once before starting a demo. Each app has its own source and
@@ -258,29 +258,32 @@ Run `npm run build:demos` to assemble all apps into `site/`, or `npm run build` 
 
 ## Package exports
 
-| Path | Contains |
-|---|---|
-| `@aotr/open-a11y` | engine, storage, config, tools, profiles, i18n, web components |
-| `@aotr/open-a11y/react` | provider, hooks, widget, inline panel |
-| `@aotr/open-a11y/vue` | plugin, composable, widget component |
-| `@aotr/open-a11y/svelte` | readable store, widget action |
-| `@aotr/open-a11y/angular` | providers, signal service, directive |
-| `@aotr/open-a11y/styles.css` | optional base stylesheet |
-| `@aotr/open-a11y/browser` | standalone IIFE bundle for script tags |
+| Path                         | Contains                                                       |
+| ---------------------------- | -------------------------------------------------------------- |
+| `@aotr/open-a11y`            | engine, storage, config, tools, profiles, i18n, web components |
+| `@aotr/open-a11y/react`      | provider, hooks, widget, inline panel                          |
+| `@aotr/open-a11y/vue`        | plugin, composable, widget component                           |
+| `@aotr/open-a11y/svelte`     | readable store, widget action                                  |
+| `@aotr/open-a11y/angular`    | providers, signal service, mount helper                        |
+| `@aotr/open-a11y/styles.css` | optional base stylesheet                                       |
+| `@aotr/open-a11y/browser`    | standalone IIFE bundle for script tags                         |
 
 ## Development
 
 ```bash
 npm install
-npm run lint
-npm test
-npm run build
+npm run lint        # vp check: format, lint, type-check
+npm test            # vp test (Vitest 5)
+npm run build       # Rollup runtime bundles + tsc declarations + ng-packagr
+npm run build:demos # vp build for every app, assembled into site/
 npm run test:dist
 ```
 
-The build uses Rollup for minified runtime bundles and TypeScript for declarations.
-Angular declarations are built with ng-packagr so AOT consumers get directive and
-provider metadata.
+Development, checks, tests, and demo builds run through
+[Vite+](https://viteplus.dev/) (`vp check`, `vp test`, `vp dev`, `vp build`).
+The library bundle stays on Rollup because it must emit shared-entry ESM/CJS
+adapters plus a standalone IIFE; Angular declarations are built with ng-packagr
+so AOT consumers receive provider metadata.
 
 Deep dives live in [`docs/`](./docs/):
 

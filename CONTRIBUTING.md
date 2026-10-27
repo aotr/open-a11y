@@ -12,6 +12,15 @@ npm run build
 npm test
 ```
 
+The project uses Vite+ for formatting, linting, type checks, tests, and demo
+builds:
+
+```bash
+npm exec -- vp check
+npm exec -- vp test
+npm exec -- vp dev examples/vanilla
+```
+
 The Angular build uses pnpm for its isolated library workspace:
 
 ```bash
@@ -42,6 +51,7 @@ docs/           architecture and API notes
 
 ```bash
 npm run lint
+npm run typecheck
 npm test
 npm run build
 npm run test:dist
@@ -50,7 +60,7 @@ npm run test:dist
 For adapter changes, also build the matching demo:
 
 ```bash
-npx vite build --config examples/vue/vite.config.ts
+npm exec -- vp build examples/vue
 pnpm --dir examples/angular build
 ```
 

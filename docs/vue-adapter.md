@@ -14,29 +14,29 @@ npm install @aotr/open-a11y vue
 ## Plugin
 
 ```ts
-import { createApp } from 'vue'
-import { AccessibilityEngine, localStorageAdapter } from '@aotr/open-a11y'
-import { createAccessibilityPlugin } from '@aotr/open-a11y/vue'
+import { createApp } from "vue";
+import { AccessibilityEngine, localStorageAdapter } from "@aotr/open-a11y";
+import { createAccessibilityPlugin } from "@aotr/open-a11y/vue";
 
-const engine = new AccessibilityEngine({ storage: localStorageAdapter })
+const engine = new AccessibilityEngine({ storage: localStorageAdapter });
 
 createApp(App)
   .use(createAccessibilityPlugin(engine, { showWidgetOnMount: true }))
-  .mount('#app')
+  .mount("#app");
 ```
 
-| Option | Type | Description |
-|---|---|---|
-| `showWidgetOnMount` | `boolean` | Mount the floating widget during app install |
-| `widgetOptions` | `UIOptions` | Position, side, offset, blur, container, and config overrides |
+| Option              | Type        | Description                                                   |
+| ------------------- | ----------- | ------------------------------------------------------------- |
+| `showWidgetOnMount` | `boolean`   | Mount the floating widget during app install                  |
+| `widgetOptions`     | `UIOptions` | Position, side, offset, blur, container, and config overrides |
 
 ## Composable
 
 ```vue
 <script setup lang="ts">
-import { useAccessibility } from '@aotr/open-a11y/vue'
+import { useAccessibility } from "@aotr/open-a11y/vue";
 
-const { settings, states, toggleTool, applyProfile, reset } = useAccessibility()
+const { settings, states, toggleTool, applyProfile, reset } = useAccessibility();
 </script>
 
 <template>
@@ -45,7 +45,7 @@ const { settings, states, toggleTool, applyProfile, reset } = useAccessibility()
     :aria-pressed="states['font-weight'] === true"
     @click="toggleTool('font-weight')"
   >
-    Bold text: {{ settings.states['font-weight'] ? 'on' : 'off' }}
+    Bold text: {{ settings.states["font-weight"] ? "on" : "off" }}
   </button>
 </template>
 ```
@@ -57,9 +57,9 @@ The context exposes `settings`, `states`, `engine`, tool/profile/language action
 
 ```vue
 <script setup lang="ts">
-import { A11yWidget } from '@aotr/open-a11y/vue'
+import { A11yWidget } from "@aotr/open-a11y/vue";
 
-const options = { position: 'bottom-right' as const }
+const options = { position: "bottom-right" as const };
 </script>
 
 <template>

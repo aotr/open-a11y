@@ -1,2 +1,2 @@
-export { AccessibilityWidget } from './AccessibilityWidget'
-export { AccessibilityPanel } from './AccessibilityPanel'
+export { AccessibilityWidget } from "./AccessibilityWidget";
+export { AccessibilityPanel } from "./AccessibilityPanel";

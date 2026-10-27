@@ -7,19 +7,19 @@
 
 /** Individual tool states keyed by tool ID */
 export interface ISettingsStates {
-  fontSize?: number
-  contrast?: string
-  [key: string]: unknown
+  fontSize?: number;
+  contrast?: string;
+  [key: string]: unknown;
 }
 
 /** Top-level settings object */
 export interface ISettings {
   /** Language code (ISO 639-1 or BCP 47), e.g. "en", "hi", "zh-Hans" */
-  lang?: string
+  lang?: string;
 
   /** Active tool states */
-  states?: ISettingsStates
+  states?: ISettingsStates;
 
   /** Last modification timestamp */
-  updatedAt?: string
+  updatedAt?: string;
 }

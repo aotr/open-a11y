@@ -82,107 +82,111 @@ function getSliderTemplate(): string {
       </div>
     </div>
   </div>
-`
+`;
 }
 
-const _HTMLElement = (typeof HTMLElement !== 'undefined' ? HTMLElement : class {}) as typeof HTMLElement
+const _HTMLElement = (
+  typeof HTMLElement !== "undefined" ? HTMLElement : class {}
+) as typeof HTMLElement;
 
 export class AswSlider extends _HTMLElement {
-  private _minus: HTMLElement | null = null
-  private _plus: HTMLElement | null = null
-  private _amount: HTMLElement | null = null
-  private _label: HTMLElement | null = null
-  private _onMinusClick: (() => void) | null = null
-  private _onPlusClick: (() => void) | null = null
+  private _minus: HTMLElement | null = null;
+  private _plus: HTMLElement | null = null;
+  private _amount: HTMLElement | null = null;
+  private _label: HTMLElement | null = null;
+  private _onMinusClick: (() => void) | null = null;
+  private _onPlusClick: (() => void) | null = null;
 
   static get observedAttributes(): string[] {
-    return ['label', 'value', 'unit', 'min', 'max', 'step']
+    return ["label", "value", "unit", "min", "max", "step"];
   }
 
   constructor() {
-    super()
-    this.attachShadow({ mode: 'open' })
-    const tpl = document.createElement('template')
-    tpl.innerHTML = getSliderTemplate()
-    this.shadowRoot!.appendChild(tpl.content.cloneNode(true))
+    super();
+    this.attachShadow({ mode: "open" });
+    const tpl = document.createElement("template");
+    tpl.innerHTML = getSliderTemplate();
+    this.shadowRoot!.appendChild(tpl.content.cloneNode(true));
   }
 
   connectedCallback(): void {
-    this._minus = this.shadowRoot!.querySelector('.asw-minus')
-    this._plus = this.shadowRoot!.querySelector('.asw-plus')
-    this._amount = this.shadowRoot!.querySelector('.asw-amount')
-    this._label = this.shadowRoot!.querySelector('.asw-label-text')
+    this._minus = this.shadowRoot!.querySelector(".asw-minus");
+    this._plus = this.shadowRoot!.querySelector(".asw-plus");
+    this._amount = this.shadowRoot!.querySelector(".asw-amount");
+    this._label = this.shadowRoot!.querySelector(".asw-label-text");
 
-    this._onMinusClick = () => this._adjust(-1)
-    this._onPlusClick = () => this._adjust(1)
-    this._minus?.addEventListener('click', this._onMinusClick)
-    this._plus?.addEventListener('click', this._onPlusClick)
+    this._onMinusClick = () => this._adjust(-1);
+    this._onPlusClick = () => this._adjust(1);
+    this._minus?.addEventListener("click", this._onMinusClick);
+    this._plus?.addEventListener("click", this._onPlusClick);
 
-    this._render()
+    this._render();
   }
 
   disconnectedCallback(): void {
-    if (this._onMinusClick) this._minus?.removeEventListener('click', this._onMinusClick)
-    if (this._onPlusClick) this._plus?.removeEventListener('click', this._onPlusClick)
-    this._onMinusClick = null
-    this._onPlusClick = null
+    if (this._onMinusClick) this._minus?.removeEventListener("click", this._onMinusClick);
+    if (this._onPlusClick) this._plus?.removeEventListener("click", this._onPlusClick);
+    this._onMinusClick = null;
+    this._onPlusClick = null;
   }
 
   attributeChangedCallback(): void {
-    this._render()
+    this._render();
   }
 
   get toolId(): string {
-    return this.getAttribute('tool-id') ?? ''
+    return this.getAttribute("tool-id") ?? "";
   }
 
   get value(): number {
-    return parseFloat(this.getAttribute('value') ?? '1')
+    return parseFloat(this.getAttribute("value") ?? "1");
   }
 
   private get _min(): number {
-    return parseFloat(this.getAttribute('min') ?? '0.1')
+    return parseFloat(this.getAttribute("min") ?? "0.1");
   }
 
   private get _max(): number {
-    return parseFloat(this.getAttribute('max') ?? '2.0')
+    return parseFloat(this.getAttribute("max") ?? "2.0");
   }
 
   private get _step(): number {
-    return parseFloat(this.getAttribute('step') ?? '0.1')
+    return parseFloat(this.getAttribute("step") ?? "0.1");
   }
 
   private get _unit(): string {
-    return this.getAttribute('unit') ?? '%'
+    return this.getAttribute("unit") ?? "%";
   }
 
   private _adjust(direction: 1 | -1): void {
-    let newValue = this.value + direction * this._step
-    newValue = Math.max(this._min, Math.min(this._max, newValue))
-    newValue = Number(newValue.toFixed(2))
-    this.setAttribute('value', String(newValue))
+    let newValue = this.value + direction * this._step;
+    newValue = Math.max(this._min, Math.min(this._max, newValue));
+    newValue = Number(newValue.toFixed(2));
+    this.setAttribute("value", String(newValue));
 
-    this.dispatchEvent(new CustomEvent('change', {
-      bubbles: true,
-      detail: { toolId: this.toolId, value: newValue },
-    }))
+    this.dispatchEvent(
+      new CustomEvent("change", {
+        bubbles: true,
+        detail: { toolId: this.toolId, value: newValue },
+      }),
+    );
   }
 
   private _render(): void {
-    const label = this.getAttribute('label') ?? ''
-    if (this._label) this._label.textContent = label
+    const label = this.getAttribute("label") ?? "";
+    if (this._label) this._label.textContent = label;
 
-    const val = this.value
+    const val = this.value;
     if (this._amount) {
-      if (this._unit === '%') {
-        this._amount.textContent = `${Math.round(val * 100)}%`
+      if (this._unit === "%") {
+        this._amount.textContent = `${Math.round(val * 100)}%`;
       } else {
-        this._amount.textContent = `${val}${this._unit}`
+        this._amount.textContent = `${val}${this._unit}`;
       }
     }
   }
 }
 
-if (typeof customElements !== 'undefined' && !customElements.get('asw-slider')) {
-  customElements.define('asw-slider', AswSlider)
+if (typeof customElements !== "undefined" && !customElements.get("asw-slider")) {
+  customElements.define("asw-slider", AswSlider);
 }

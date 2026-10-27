@@ -1,13 +1,13 @@
-import type { IProfile } from '../types/IProfile'
+import type { IProfile } from "../types/IProfile";
 
 export const seizureSafeProfile: IProfile = {
-  id: 'seizure-safe',
-  label: 'profiles.seizureSafe',
-  description: 'profiles.seizureSafeDesc',
-  icon: 'seizure-safe',
+  id: "seizure-safe",
+  label: "profiles.seizureSafe",
+  description: "profiles.seizureSafeDesc",
+  icon: "seizure-safe",
   states: {
-    'stop-animations': true,
-    'reduced-motion': true,
+    "stop-animations": true,
+    "reduced-motion": true,
     contrast: false,
   },
-}
+};

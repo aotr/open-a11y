@@ -4,17 +4,17 @@
  */
 export interface IProfile {
   /** Unique profile ID, e.g. "seizure-safe" */
-  id: string
+  id: string;
 
   /** Human-readable label (translation key) */
-  label: string
+  label: string;
 
   /** Brief description of what this profile does */
-  description: string
+  description: string;
 
   /** Icon identifier for rendering */
-  icon: string
+  icon: string;
 
   /** Predefined tool states this profile applies */
-  states: Record<string, unknown>
+  states: Record<string, unknown>;
 }

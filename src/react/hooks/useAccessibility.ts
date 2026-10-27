@@ -7,12 +7,12 @@
  *   const { settings, toggleTool, setFontScale, applyProfile } = useAccessibility()
  *   return <button onClick={() => toggleTool('font-weight')}>Toggle Bold</button>
  */
-'use client'
+"use client";
 
-import { useAccessibilityContext } from '../provider/AccessibilityProvider'
+import { useAccessibilityContext } from "../provider/AccessibilityProvider";
 
 export function useAccessibility() {
-  const ctx = useAccessibilityContext()
+  const ctx = useAccessibilityContext();
 
   return {
     /** Current settings snapshot */
@@ -20,7 +20,7 @@ export function useAccessibility() {
     /** All tool states keyed by tool ID */
     states: ctx.settings.states ?? {},
     /** Current language */
-    lang: ctx.settings.lang ?? 'en',
+    lang: ctx.settings.lang ?? "en",
     /** Toggle a boolean tool */
     toggleTool: ctx.toggleTool,
     /** Set font scale (0.1–2.0) */
@@ -43,5 +43,5 @@ export function useAccessibility() {
     getToolValue: ctx.getToolValue,
     /** Engine instance (for config-driven labels and custom integrations) */
     engine: ctx.engine,
-  }
+  };
 }

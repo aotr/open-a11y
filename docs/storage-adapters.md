@@ -11,9 +11,9 @@ Storage adapters abstract the persistence layer so the accessibility widget work
 ```ts
 // src/storage/types.ts
 export interface IStorageAdapter {
-  getItem(key: string): string | null
-  setItem(key: string, value: string): void
-  removeItem(key: string): void
+  getItem(key: string): string | null;
+  setItem(key: string, value: string): void;
+  removeItem(key: string): void;
 }
 ```
 
@@ -30,31 +30,32 @@ The default adapter for browser environments.
 export const localStorageAdapter: IStorageAdapter = {
   getItem(key: string): string | null {
     try {
-      return localStorage.getItem(key)
+      return localStorage.getItem(key);
     } catch {
-      return null
+      return null;
     }
   },
 
   setItem(key: string, value: string): void {
     try {
-      localStorage.setItem(key, value)
+      localStorage.setItem(key, value);
     } catch (err) {
-      console.warn('Failed to save accessibility settings:', err)
+      console.warn("Failed to save accessibility settings:", err);
     }
   },
 
   removeItem(key: string): void {
     try {
-      localStorage.removeItem(key)
+      localStorage.removeItem(key);
     } catch {
       // Silently ignore
     }
   },
-}
+};
 ```
 
 **Error handling:**
+
 - **`getItem()`**: Returns `null` on error (private browsing blocks localStorage in some browsers)
 - **`setItem()`**: Logs a warning on error — doesn't crash the app
 - **`removeItem()`**: Silently ignores errors
@@ -70,25 +71,26 @@ An in-memory adapter for SSR, testing, and environments without `localStorage`.
 ```ts
 // src/storage/memoryAdapter.ts
 export function createMemoryAdapter(): IStorageAdapter {
-  const store: Record<string, string> = {}
+  const store: Record<string, string> = {};
 
   return {
     getItem(key: string): string | null {
-      return store[key] ?? null
+      return store[key] ?? null;
     },
     setItem(key: string, value: string): void {
-      store[key] = value
+      store[key] = value;
     },
     removeItem(key: string): void {
-      delete store[key]
+      delete store[key];
     },
-  }
+  };
 }
 ```
 
 **Factory pattern:** `createMemoryAdapter()` returns a **new instance** every time — each call gets its own isolated store. This prevents test pollution.
 
 **Use cases:**
+
 - **SSR (Server-Side Rendering):** Next.js server-side has no `localStorage`
 - **Testing:** Vitest/Jest tests need isolated storage
 - **Demo/preview:** Don't persist to user's real localStorage
@@ -115,13 +117,13 @@ StateManager.hydrate()
 
 ```ts
 // In tests:
-import { createMemoryAdapter } from '@aotr/open-a11y'
+import { createMemoryAdapter } from "@aotr/open-a11y";
 
-const storage = createMemoryAdapter()
-const engine = new AccessibilityEngine({ storage })
+const storage = createMemoryAdapter();
+const engine = new AccessibilityEngine({ storage });
 
 // Engine uses in-memory storage — no localStorage pollution
-await engine.init()
+await engine.init();
 ```
 
 ---
@@ -134,19 +136,19 @@ For server-side persistence (e.g., cookies, database):
 const cookieAdapter: IStorageAdapter = {
   getItem(key: string): string | null {
     // Read from cookie
-    const match = document.cookie.match(new RegExp(`(^| )${key}=([^;]+)`))
-    return match ? decodeURIComponent(match[2]) : null
+    const match = document.cookie.match(new RegExp(`(^| )${key}=([^;]+)`));
+    return match ? decodeURIComponent(match[2]) : null;
   },
   setItem(key: string, value: string): void {
     // Write to cookie
-    document.cookie = `${key}=${encodeURIComponent(value)}; path=/; max-age=31536000`
+    document.cookie = `${key}=${encodeURIComponent(value)}; path=/; max-age=31536000`;
   },
   removeItem(key: string): void {
-    document.cookie = `${key}=; path=/; max-age=0`
+    document.cookie = `${key}=; path=/; max-age=0`;
   },
-}
+};
 
-const engine = new AccessibilityEngine({ storage: cookieAdapter })
+const engine = new AccessibilityEngine({ storage: cookieAdapter });
 ```
 
 The adapter pattern makes the engine completely storage-agnostic.
