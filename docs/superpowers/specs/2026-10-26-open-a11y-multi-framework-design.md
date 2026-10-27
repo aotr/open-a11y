@@ -24,12 +24,12 @@ display name remains **open-a11y**.
 
 Add optional framework entries:
 
-| Entry                     | Public API                                                                     | Peer                 |
-| ------------------------- | ------------------------------------------------------------------------------ | -------------------- |
-| `@aotr/open-a11y/react`   | Existing provider/hooks/components                                             | `react >=17`         |
-| `@aotr/open-a11y/vue`     | `createAccessibilityPlugin`, `useAccessibility`, `A11yWidget`                  | `vue >=3`            |
-| `@aotr/open-a11y/svelte`  | `createAccessibilityStore`, `accessibilityWidget`                              | `svelte >=5`         |
-| `@aotr/open-a11y/angular` | `provideAccessibility`, `AccessibilityService`, `AccessibilityWidgetDirective` | `@angular/core >=17` |
+| Entry                     | Public API                                                                 | Peer                 |
+| ------------------------- | -------------------------------------------------------------------------- | -------------------- |
+| `@aotr/open-a11y/react`   | Existing provider/hooks/components                                         | `react >=17`         |
+| `@aotr/open-a11y/vue`     | `createAccessibilityPlugin`, `useAccessibility`, `A11yWidget`              | `vue >=3`            |
+| `@aotr/open-a11y/svelte`  | `createAccessibilityStore`, `accessibilityWidget`                          | `svelte >=5`         |
+| `@aotr/open-a11y/angular` | `provideAccessibility`, `AccessibilityService`, `mountAccessibilityWidget` | `@angular/core >=17` |
 
 All adapter entries import the core entry at runtime. They do not bundle a
 second engine, locale table, stylesheet registry, or widget session.

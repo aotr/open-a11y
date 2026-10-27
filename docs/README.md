@@ -22,7 +22,7 @@ Comprehensive feature-by-feature documentation explaining how the accessibility 
 | [React Adapter](react-adapter.md)                     | Provider, hooks, components                                                                |
 | [Vue Adapter](vue-adapter.md)                         | Plugin, composable, widget component                                                       |
 | [Svelte Adapter](svelte-adapter.md)                   | Readable store and widget action                                                           |
-| [Angular Adapter](angular-adapter.md)                 | Providers, signal service, directive                                                       |
+| [Angular Adapter](angular-adapter.md)                 | Providers, signal service, mount helper                                                    |
 | [Internationalization](i18n.md)                       | Translation system architecture                                                            |
 | [Keyboard Shortcuts](keyboard-shortcuts.md)           | Keyboard navigation & focus management                                                     |
 | [Publishing](publishing.md)                           | npm publish guide                                                                          |
