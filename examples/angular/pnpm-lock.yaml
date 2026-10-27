@@ -21,8 +21,8 @@ importers:
         specifier: ^21.2.0
         version: 21.2.25(@angular/common@21.2.25(@angular/core@21.2.25(@angular/compiler@21.2.25)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.2.25(@angular/compiler@21.2.25)(rxjs@7.8.2))
       '@aotr/open-a11y':
-        specifier: file:../..
-        version: file:../..(@angular/core@21.2.25(@angular/compiler@21.2.25)(rxjs@7.8.2))
+        specifier: link:../..
+        version: link:../..
       rxjs:
         specifier: ~7.8.0
         version: 7.8.2
@@ -221,23 +221,6 @@ packages:
       '@angular/core': 21.2.25
     peerDependenciesMeta:
       '@angular/animations':
-        optional: true
-
-  '@aotr/open-a11y@file:../..':
-    resolution: {directory: ../.., type: directory}
-    peerDependencies:
-      '@angular/core': '>=17.0.0'
-      react: '>=17.0.0'
-      svelte: '>=5.0.0'
-      vue: '>=3.5.0'
-    peerDependenciesMeta:
-      '@angular/core':
-        optional: true
-      react:
-        optional: true
-      svelte:
-        optional: true
-      vue:
         optional: true
 
   '@asamuzakjp/css-color@5.1.11':
@@ -1925,9 +1908,6 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
-  lucide@1.61.0:
-    resolution: {integrity: sha512-RPNMBgej6WjPKuCNEODg83CF8lnraCeDOsZ3HZ7KvUYf0O5hdJBzer/Ax/meBHl3xvrp5NmKX0IDA5myyzlvGw==}
-
   magic-string@0.30.21:
     resolution: {integrity: sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==}
 
@@ -2905,12 +2885,6 @@ snapshots:
       '@angular/common': 21.2.25(@angular/core@21.2.25(@angular/compiler@21.2.25)(rxjs@7.8.2))(rxjs@7.8.2)
       '@angular/core': 21.2.25(@angular/compiler@21.2.25)(rxjs@7.8.2)
       tslib: 2.8.1
-
-  '@aotr/open-a11y@file:../..(@angular/core@21.2.25(@angular/compiler@21.2.25)(rxjs@7.8.2))':
-    dependencies:
-      lucide: 1.61.0
-    optionalDependencies:
-      '@angular/core': 21.2.25(@angular/compiler@21.2.25)(rxjs@7.8.2)
 
   '@asamuzakjp/css-color@5.1.11':
     dependencies:
@@ -4491,8 +4465,6 @@ snapshots:
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
-
-  lucide@1.61.0: {}
 
   magic-string@0.30.21:
     dependencies:

@@ -18,8 +18,8 @@ importers:
         specifier: ^21.2.25
         version: 21.2.25(@angular/compiler@21.2.25)(rxjs@7.8.2)
       '@aotr/open-a11y':
-        specifier: file:..
-        version: file:..(@angular/core@21.2.25(@angular/compiler@21.2.25)(rxjs@7.8.2))
+        specifier: link:..
+        version: link:..
       ng-packagr:
         specifier: ^21.2.7
         version: 21.2.7(@angular/compiler-cli@21.2.25(@angular/compiler@21.2.25)(typescript@5.9.3))(tslib@2.8.1)(typescript@5.9.3)
@@ -59,23 +59,6 @@ packages:
       '@angular/compiler':
         optional: true
       zone.js:
-        optional: true
-
-  '@aotr/open-a11y@file:..':
-    resolution: {directory: .., type: directory}
-    peerDependencies:
-      '@angular/core': '>=17.0.0'
-      react: '>=17.0.0'
-      svelte: '>=5.0.0'
-      vue: '>=3.3.0'
-    peerDependenciesMeta:
-      '@angular/core':
-        optional: true
-      react:
-        optional: true
-      svelte:
-        optional: true
-      vue:
         optional: true
 
   '@babel/code-frame@7.29.7':
@@ -887,9 +870,6 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
-  lucide@1.61.0:
-    resolution: {integrity: sha512-RPNMBgej6WjPKuCNEODg83CF8lnraCeDOsZ3HZ7KvUYf0O5hdJBzer/Ax/meBHl3xvrp5NmKX0IDA5myyzlvGw==}
-
   magic-string@0.30.21:
     resolution: {integrity: sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==}
 
@@ -1140,12 +1120,6 @@ snapshots:
       tslib: 2.8.1
     optionalDependencies:
       '@angular/compiler': 21.2.25
-
-  '@aotr/open-a11y@file:..(@angular/core@21.2.25(@angular/compiler@21.2.25)(rxjs@7.8.2))':
-    dependencies:
-      lucide: 1.61.0
-    optionalDependencies:
-      '@angular/core': 21.2.25(@angular/compiler@21.2.25)(rxjs@7.8.2)
 
   '@babel/code-frame@7.29.7':
     dependencies:
@@ -1783,8 +1757,6 @@ snapshots:
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
-
-  lucide@1.61.0: {}
 
   magic-string@0.30.21:
     dependencies:

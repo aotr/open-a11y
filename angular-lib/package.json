@@ -7,7 +7,7 @@
     "build": "npm run sync && ng-packagr -p ng-package.json"
   },
   "devDependencies": {
-    "@aotr/open-a11y": "file:..",
+    "@aotr/open-a11y": "link:..",
     "@angular/compiler": "^21.2.25",
     "@angular/compiler-cli": "^21.2.25",
     "@angular/core": "^21.2.25",
