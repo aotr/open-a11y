@@ -101,7 +101,8 @@
     "demo:angular": "npm run build && pnpm --dir examples/angular exec ng serve --port 4178",
     "build:js": "rollup -c rollup.config.mjs",
     "build:types": "tsc -p tsconfig.types.json",
-    "build:angular": "pnpm --dir angular-lib build"
+    "build:angular": "pnpm --dir angular-lib build",
+    "pretest": "npm run build:css"
   },
   "peerDependencies": {
     "@angular/core": ">=17.0.0",
