@@ -121,10 +121,9 @@ export function createAccessibilityUI(
   widget.setAttribute("offset-x", String(offsetX));
   widget.setAttribute("offset-y", String(offsetY));
 
-  // Apply button size if configured
-  if (merged.buttonSize !== 56) {
-    widget.setAttribute("button-size", String(merged.buttonSize));
-  }
+  // Apply desktop and mobile button sizes in CSS pixels.
+  widget.setAttribute("button-size", String(merged.buttonSize));
+  widget.setAttribute("button-size-mobile", String(merged.buttonSizeMobile));
 
   // Apply show/hide preference — user's persisted choice overrides config
   const userHidePref =

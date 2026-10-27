@@ -8,6 +8,7 @@ export interface DemoUiState {
   offsetY: number;
   blur: boolean;
   buttonSize: number;
+  buttonSizeMobile: number;
   showButton: boolean;
   primary: string;
   primaryDark: string;
@@ -26,6 +27,7 @@ export const DEFAULT_DEMO_STATE: DemoUiState = {
   offsetY: 20,
   blur: true,
   buttonSize: 56,
+  buttonSizeMobile: 44,
   showButton: true,
   primary: "#1f4bd8",
   primaryDark: "#1739a8",
@@ -44,6 +46,7 @@ export function toDemoConfig(state: DemoUiState): IAccessibilityConfig {
     offset: [state.offsetX, state.offsetY],
     blur: state.blur,
     buttonSize: state.buttonSize,
+    buttonSizeMobile: state.buttonSizeMobile,
     showButton: state.showButton,
     labels: {
       "widget.menuTitle": state.menuTitle,
@@ -95,8 +98,11 @@ export function createDemoCustomizer(
             <option value="hi">हिन्दी</option>
           </select>
         </label>
-        <label>Button size <output data-output="buttonSize">${state.buttonSize}px</output>
+        <label>Desktop button size <output data-output="buttonSize">${state.buttonSize}px</output>
           <input data-field="buttonSize" type="range" min="40" max="72" step="1" value="${state.buttonSize}" />
+        </label>
+        <label>Mobile button size <output data-output="buttonSizeMobile">${state.buttonSizeMobile}px</output>
+          <input data-field="buttonSizeMobile" type="range" min="36" max="64" step="1" value="${state.buttonSizeMobile}" />
         </label>
         <label>Offset X <output data-output="offsetX">${state.offsetX}px</output>
           <input data-field="offsetX" type="range" min="8" max="48" step="1" value="${state.offsetX}" />

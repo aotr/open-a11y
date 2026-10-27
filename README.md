@@ -6,7 +6,7 @@ for Vanilla JS, React, Vue, Svelte, Angular, Laravel Blade, and Livewire.
 
 [![npm](https://img.shields.io/npm/v/@aotr/open-a11y?label=npm)](https://www.npmjs.com/package/@aotr/open-a11y)
 [![CI](https://github.com/aotr/open-a11y/actions/workflows/ci.yml/badge.svg)](https://github.com/aotr/open-a11y/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/license-MIT-0f6b4f.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-1f4bd8.svg)](LICENSE)
 
 [Live demos](https://aotr.github.io/open-a11y/) · [Documentation](./docs/README.md) · [Examples](./examples/README.md) ·
 [Laravel package](https://github.com/aotr/open-a11y-laravel) ·
@@ -66,7 +66,7 @@ const engine = new AccessibilityEngine({
   storage: localStorageAdapter,
   config: mergeConfig({
     position: "bottom-right",
-    brand: { primary: "#0f6b4f", accent: "#d4a13a" },
+    brand: { primary: "#1f4bd8", accent: "#b23a25" },
   }),
 });
 
@@ -184,6 +184,7 @@ const config = mergeConfig({
   offset: [20, 20],
   blur: true,
   buttonSize: 56,
+  buttonSizeMobile: 44,
   showButton: true,
   defaultLanguage: "en",
   labels: {
@@ -193,9 +194,9 @@ const config = mergeConfig({
     name: "Acme",
     url: "https://example.com",
     footerText: "Accessibility tools by Acme",
-    primary: "#0f6b4f",
-    primaryDark: "#0a4a37",
-    accent: "#d4a13a",
+    primary: "#1f4bd8",
+    primaryDark: "#1739a8",
+    accent: "#b23a25",
   },
   features: {
     tools: { "dark-contrast": false },

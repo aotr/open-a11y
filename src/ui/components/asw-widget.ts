@@ -100,7 +100,15 @@ export class AswWidget extends _HTMLElement {
   private _button: HTMLButtonElement | null = null;
 
   static get observedAttributes(): string[] {
-    return ["position", "offset-x", "offset-y", "button-size", "show-button", "aria-expanded"];
+    return [
+      "position",
+      "offset-x",
+      "offset-y",
+      "button-size",
+      "button-size-mobile",
+      "show-button",
+      "aria-expanded",
+    ];
   }
 
   constructor() {
@@ -131,7 +139,7 @@ export class AswWidget extends _HTMLElement {
   attributeChangedCallback(name: string, _old: string | null, value: string | null): void {
     if (name === "aria-expanded") {
       this._button?.setAttribute("aria-expanded", value ?? "false");
-    } else if (name === "button-size") {
+    } else if (name === "button-size" || name === "button-size-mobile") {
       this._applyButtonSize();
     } else if (name === "show-button") {
       this._applyShowButton();
@@ -163,13 +171,14 @@ export class AswWidget extends _HTMLElement {
   }
 
   private _applyButtonSize(): void {
-    const size = this.getAttribute("button-size");
-    if (size) {
-      const px = `${size}px`;
-      this.style.setProperty("--asw-btn-size", px);
-      const mobile = Math.max(44, Math.round(parseInt(size, 10) * 0.785));
-      this.style.setProperty("--asw-btn-size-mobile", `${mobile}px`);
-    }
+    const desktop = parseInt(this.getAttribute("button-size") ?? "56", 10);
+    const mobileAttribute = this.getAttribute("button-size-mobile");
+    const mobile = mobileAttribute
+      ? parseInt(mobileAttribute, 10)
+      : Math.max(44, Math.round(desktop * 0.785));
+
+    this.style.setProperty("--asw-btn-size", `${desktop}px`);
+    this.style.setProperty("--asw-btn-size-mobile", `${mobile}px`);
   }
 
   private _applyShowButton(): void {

@@ -35,14 +35,15 @@ A fixed-position circular button with a trust-green gradient.
 
 **Attributes:**
 
-| Attribute       | Type   | Default        | Description                                                          |
-| --------------- | ------ | -------------- | -------------------------------------------------------------------- |
-| `position`      | string | `bottom-right` | `bottom-left`, `bottom-right`, `top-left`, `top-right`               |
-| `offset-x`      | number | `20`           | Horizontal offset in px                                              |
-| `offset-y`      | number | `20`           | Vertical offset in px                                                |
-| `button-size`   | number | —              | Diameter in px (overrides default 56). Sets `--asw-btn-size` CSS var |
-| `show-button`   | string | `true`         | `"true"` / `"false"` — show or hide the button                       |
-| `aria-expanded` | string | `false`        | Synced with sidebar state                                            |
+| Attribute            | Type   | Default        | Description                                            |
+| -------------------- | ------ | -------------- | ------------------------------------------------------ |
+| `position`           | string | `bottom-right` | `bottom-left`, `bottom-right`, `top-left`, `top-right` |
+| `offset-x`           | number | `20`           | Horizontal offset in px                                |
+| `offset-y`           | number | `20`           | Vertical offset in px                                  |
+| `button-size`        | number | `56`           | Desktop diameter in px. Sets `--asw-btn-size`          |
+| `button-size-mobile` | number | `44`           | Diameter at ≤768px. Sets `--asw-btn-size-mobile`       |
+| `show-button`        | string | `true`         | `"true"` / `"false"` — show or hide the button         |
+| `aria-expanded`      | string | `false`        | Synced with sidebar state                              |
 
 **Methods (public API):**
 
@@ -195,7 +196,7 @@ All widget styles live in a single raw CSS file imported as a string. This is in
 
 ```css
 :host {
-  --asw-primary: hsl(158, 64%, 35%); /* Trust green */
+  --asw-primary: #1f4bd8; /* Default cobalt */
   --asw-accent: hsl(47.9, 95.8%, 53.1%); /* Golden yellow */
   --asw-bg: #f0f2f6;
   --asw-card-bg: #ffffff;

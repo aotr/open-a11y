@@ -10,11 +10,11 @@
    DESIGN TOKENS (CSS Custom Properties)
    ═══════════════════════════════════════════════ */
 :host {
-  --asw-primary: var(--asw-brand-primary, hsl(158, 64%, 35%));
-  --asw-primary-dark: var(--asw-brand-primary-dark, hsl(158, 64%, 28%));
-  --asw-primary-rgb: var(--asw-brand-primary-rgb, 32, 146, 115);
-  --asw-accent: var(--asw-brand-accent, hsl(47.9, 95.8%, 53.1%));
-  --asw-accent-rgb: var(--asw-brand-accent-rgb, 250, 204, 21);
+  --asw-primary: var(--asw-brand-primary, #1f4bd8);
+  --asw-primary-dark: var(--asw-brand-primary-dark, #1739a8);
+  --asw-primary-rgb: var(--asw-brand-primary-rgb, 31, 75, 216);
+  --asw-accent: var(--asw-brand-accent, #b23a25);
+  --asw-accent-rgb: var(--asw-brand-accent-rgb, 178, 58, 37);
   --asw-bg: #f0f2f6;
   --asw-card-bg: #ffffff;
   --asw-text: #242424;

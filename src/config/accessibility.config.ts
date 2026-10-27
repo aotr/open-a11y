@@ -85,8 +85,10 @@ export interface IAccessibilityConfig {
   blur?: boolean;
   /** Master switch — set false to completely disable the accessibility widget (default: true) */
   enabled?: boolean;
-  /** Diameter of the floating button in px (default: 56) */
+  /** Diameter of the floating button on desktop in px (default: 56) */
   buttonSize?: number;
+  /** Diameter of the floating button on viewports up to 768px (default: 44) */
+  buttonSizeMobile?: number;
   /** Show/hide the floating accessibility button (default: true) */
   showButton?: boolean;
   /** CSS selector for external trigger elements — clicking these toggles the sidebar (default: '') */
@@ -117,14 +119,15 @@ export const DEFAULT_ACCESSIBILITY_CONFIG: Required<IAccessibilityConfig> = {
   blur: false,
   enabled: true,
   buttonSize: 56,
+  buttonSizeMobile: 44,
   showButton: true,
   triggerSelector: "",
   brand: {
     name: "",
     url: "",
-    primary: "hsl(158, 64%, 35%)",
-    primaryDark: "hsl(158, 64%, 28%)",
-    accent: "hsl(47.9, 95.8%, 53.1%)",
+    primary: "#1f4bd8",
+    primaryDark: "#1739a8",
+    accent: "#b23a25",
   },
   labels: {},
   features: {
@@ -178,6 +181,7 @@ export function mergeConfig(
   resolved.blur = custom.blur ?? resolved.blur;
   resolved.enabled = custom.enabled ?? resolved.enabled;
   resolved.buttonSize = custom.buttonSize ?? resolved.buttonSize;
+  resolved.buttonSizeMobile = custom.buttonSizeMobile ?? resolved.buttonSizeMobile;
   resolved.showButton = custom.showButton ?? resolved.showButton;
   resolved.triggerSelector = custom.triggerSelector ?? resolved.triggerSelector;
   resolved.brand = { ...resolved.brand, ...custom.brand };

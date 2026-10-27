@@ -83,6 +83,24 @@ describe("UI configuration consumption", () => {
     expect(ui.menu.shadowRoot!.querySelector(".asw-footer")!.textContent).toBe(
       "Accessibility by Acme",
     );
+    expect(ui.widget.getAttribute("button-size")).toBe("56");
+    expect(ui.widget.getAttribute("button-size-mobile")).toBe("44");
+
+    ui.destroy();
+  });
+
+  it("applies custom desktop/mobile button sizes and brand colors", () => {
+    const engine = createEngine({
+      buttonSize: 64,
+      buttonSizeMobile: 40,
+      brand: { primary: "#7c3aed", accent: "#f59e0b" },
+    });
+    const ui = createAccessibilityUI(engine);
+
+    expect(ui.widget.getAttribute("button-size")).toBe("64");
+    expect(ui.widget.getAttribute("button-size-mobile")).toBe("40");
+    expect(ui.widget.style.getPropertyValue("--asw-brand-primary")).toBe("#7c3aed");
+    expect(ui.widget.style.getPropertyValue("--asw-brand-accent")).toBe("#f59e0b");
 
     ui.destroy();
   });

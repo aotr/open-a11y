@@ -1,6 +1,6 @@
 {
   "name": "@aotr/open-a11y",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "description": "Open-source accessibility widget for Vanilla JS, React, Vue, Svelte, Angular, Blade, and Livewire.",
   "keywords": [
     "a11y",

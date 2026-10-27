@@ -2,6 +2,18 @@
 
 All notable changes to `open-a11y` will be documented in this file.
 
+## [2.1.0] — 2026-10-27
+
+### Added
+
+- `buttonSizeMobile` config for a separate mobile floating-button size in CSS pixels
+- Mobile button-size control in the example customizer
+
+### Changed
+
+- Default widget palette is now cobalt and rust instead of green and gold
+- Brand colors remain fully overridable through `brand.primary`, `brand.primaryDark`, and `brand.accent`
+
 ## [2.0.3] — 2026-10-27
 
 ### Changed

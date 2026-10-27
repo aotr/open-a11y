@@ -25,7 +25,7 @@ import {
   type Tool,
 } from "../../tools/manifest";
 
-const PRIMARY = "var(--asw-brand-primary, #0f766e)";
+const PRIMARY = "var(--asw-brand-primary, #1f4bd8)";
 
 function ToolIcon({
   id,

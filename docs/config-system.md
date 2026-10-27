@@ -18,6 +18,7 @@ interface IAccessibilityConfig {
   blur?: boolean;
   enabled?: boolean;
   buttonSize?: number;
+  buttonSizeMobile?: number;
   showButton?: boolean;
   triggerSelector?: string;
   brand?: IAccessibilityBrand;
@@ -29,18 +30,19 @@ interface IAccessibilityConfig {
 
 ### Layout & Behaviour
 
-| Field             | Type                     | Default          | Description                                                                 |
-| ----------------- | ------------------------ | ---------------- | --------------------------------------------------------------------------- |
-| `side`            | `'right' \| 'left'`      | `'right'`        | Panel slide direction                                                       |
-| `position`        | string                   | `'bottom-right'` | Floating button position                                                    |
-| `offset`          | `[number, number]`       | `[20, 20]`       | Button offset from edge in px                                               |
-| `blur`            | `boolean`                | `false`          | Backdrop blur when panel is open                                            |
-| `enabled`         | `boolean`                | `true`           | Master switch — set `false` to disable the entire widget                    |
-| `buttonSize`      | `number`                 | `56`             | Floating button diameter in px (icon scales proportionally)                 |
-| `showButton`      | `boolean`                | `true`           | Show/hide the floating button (user can override via menu toggle)           |
-| `triggerSelector` | `string`                 | `''`             | CSS selector for external trigger elements that toggle the sidebar on click |
-| `brand`           | `IAccessibilityBrand`    | neutral green    | Name, URL, footer copy, and `--asw-brand-*` colors                          |
-| `labels`          | `Record<string, string>` | `{}`             | Override any UI string by i18n key (e.g. `widget.menuTitle`)                |
+| Field              | Type                     | Default          | Description                                                                 |
+| ------------------ | ------------------------ | ---------------- | --------------------------------------------------------------------------- |
+| `side`             | `'right' \| 'left'`      | `'right'`        | Panel slide direction                                                       |
+| `position`         | string                   | `'bottom-right'` | Floating button position                                                    |
+| `offset`           | `[number, number]`       | `[20, 20]`       | Button offset from edge in px                                               |
+| `blur`             | `boolean`                | `false`          | Backdrop blur when panel is open                                            |
+| `enabled`          | `boolean`                | `true`           | Master switch — set `false` to disable the entire widget                    |
+| `buttonSize`       | `number`                 | `56`             | Desktop floating button diameter in px                                      |
+| `buttonSizeMobile` | `number`                 | `44`             | Mobile floating button diameter at ≤768px                                   |
+| `showButton`       | `boolean`                | `true`           | Show/hide the floating button (user can override via menu toggle)           |
+| `triggerSelector`  | `string`                 | `''`             | CSS selector for external trigger elements that toggle the sidebar on click |
+| `brand`            | `IAccessibilityBrand`    | cobalt / rust    | Name, URL, footer copy, and `--asw-brand-*` colors                          |
+| `labels`           | `Record<string, string>` | `{}`             | Override any UI string by i18n key (e.g. `widget.menuTitle`)                |
 
 ### Features
 
@@ -87,15 +89,16 @@ export const DEFAULT_ACCESSIBILITY_CONFIG: Required<IAccessibilityConfig> = {
   blur: false,
   enabled: true,
   buttonSize: 56,
+  buttonSizeMobile: 44,
   showButton: true,
   triggerSelector: "",
   brand: {
     name: "",
     url: "",
     // footerText omitted: falls back to "Accessibility by {name}"
-    primary: "hsl(158, 64%, 35%)",
-    primaryDark: "hsl(158, 64%, 28%)",
-    accent: "hsl(47.9, 95.8%, 53.1%)",
+    primary: "#1f4bd8",
+    primaryDark: "#1739a8",
+    accent: "#b23a25",
   },
   labels: {},
   features: {
