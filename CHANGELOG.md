@@ -2,6 +2,11 @@
 
 All notable changes to `open-a11y` will be documented in this file.
 
+## [2.0.2] — 2026-10-27
+
+### Fixed
+- Angular adapter now mounts through `mountAccessibilityWidget()` instead of a directive, so AOT production builds do not depend on linked template metadata
+
 ## [2.0.1] — 2026-10-26
 
 ### Fixed

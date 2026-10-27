@@ -1,6 +1,6 @@
 {
   "name": "@aotr/open-a11y",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Open-source accessibility widget for Vanilla JS, React, Vue, Svelte, Angular, Blade, and Livewire.",
   "license": "MIT",
   "author": {
@@ -8,7 +8,7 @@
     "email": "animesh.aotr@gmail.com",
     "url": "https://github.com/aotr"
   },
-  "homepage": "https://github.com/aotr/open-a11y#readme",
+  "homepage": "https://aotr.github.io/open-a11y/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/aotr/open-a11y.git"
@@ -98,11 +98,12 @@
     "demo:react": "npm run build && vite --config examples/react/vite.config.ts",
     "demo:vue": "npm run build && vite --config examples/vue/vite.config.ts",
     "demo:svelte": "npm run build && vite --config examples/svelte/vite.config.ts",
-    "demo:angular": "npm run build && pnpm --dir examples/angular exec ng serve --port 4178",
+    "demo:angular": "npm run build && node scripts/link-self.mjs && pnpm --dir examples/angular exec ng serve --port 4178",
     "build:js": "rollup -c rollup.config.mjs",
     "build:types": "tsc -p tsconfig.types.json",
     "build:angular": "pnpm --dir angular-lib build",
-    "pretest": "npm run build:css"
+    "pretest": "npm run build:css",
+    "build:demos": "node scripts/build-demos.mjs"
   },
   "peerDependencies": {
     "@angular/core": ">=17.0.0",

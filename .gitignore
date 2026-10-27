@@ -4,3 +4,5 @@ dist/
 
 # Generated CSS (PostCSS output from accessibility.css)
 src/ui/styles/accessibility.rawcss
+
+site/

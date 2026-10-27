@@ -8,7 +8,7 @@
     "types": []
   },
   "angularCompilerOptions": {
-    "compilationMode": "partial",
+    "compilationMode": "full",
     "strictInjectionParameters": true,
     "strictTemplates": true
   },

@@ -5,6 +5,7 @@ const root = fileURLToPath(new URL('.', import.meta.url))
 const packageRoot = fileURLToPath(new URL('../..', import.meta.url))
 
 export default defineConfig({
+  base: './',
   root,
   resolve: {
     alias: {

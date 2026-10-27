@@ -8,10 +8,10 @@
   </header>
 
   <p class="demo-lede">
-    The Angular adapter uses signals and a standalone directive. Register the
-    engine with <code>provideAccessibility(engine)</code>, then bind
-    <code>[openA11yWidget]</code> to UI options. Changes remount the widget
-    without losing accessibility state.
+    The Angular adapter uses signals and a small mount helper. Register the
+    engine with <code>provideAccessibility(engine)</code>, then call
+    <code>mountAccessibilityWidget(service, options)</code> after the view
+    exists. Changes remount without losing accessibility state.
   </p>
 
   <div class="demo-grid">
@@ -35,8 +35,6 @@
   </div>
 
   <div #customizer></div>
-
-  <div [openA11yWidget]="widgetOptions()"></div>
 
   <footer class="demo-footer">
     <span>open-a11y · MIT licensed</span>

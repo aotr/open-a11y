@@ -6,12 +6,8 @@
  */
 import {
   computed,
-  Directive,
-  ElementRef,
-  inject,
   Injectable,
   InjectionToken,
-  Input,
   makeEnvironmentProviders,
   signal,
   type EnvironmentProviders,
@@ -33,18 +29,30 @@ export const ACCESSIBILITY_ENGINE = new InjectionToken<AccessibilityEngine>('ope
 export function provideAccessibility(engine: AccessibilityEngine): EnvironmentProviders {
   return makeEnvironmentProviders([
     { provide: ACCESSIBILITY_ENGINE, useValue: engine },
-    AccessibilityService,
+    {
+      provide: AccessibilityService,
+      useFactory: (activeEngine: AccessibilityEngine) => new AccessibilityService(activeEngine),
+      deps: [ACCESSIBILITY_ENGINE],
+    },
   ])
 }
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class AccessibilityService implements OnDestroy {
-  private readonly engine = inject(ACCESSIBILITY_ENGINE)
-  private readonly snapshot = signal<Readonly<ISettings>>(this.engine.settings)
-  private readonly unsubscribe = this.engine.subscribe((next) => this.snapshot.set(next))
+  private readonly engine: AccessibilityEngine
+  private readonly snapshot: ReturnType<typeof signal<Readonly<ISettings>>>
+  private readonly unsubscribe: () => void
 
-  readonly settings: Signal<Readonly<ISettings>> = this.snapshot.asReadonly()
-  readonly states: Signal<ISettingsStates> = computed(() => this.snapshot().states ?? {})
+  readonly settings: Signal<Readonly<ISettings>>
+  readonly states: Signal<ISettingsStates>
+
+  constructor(engine: AccessibilityEngine) {
+    this.engine = engine
+    this.snapshot = signal<Readonly<ISettings>>(engine.settings)
+    this.settings = this.snapshot.asReadonly()
+    this.states = computed(() => this.snapshot().states ?? {})
+    this.unsubscribe = engine.subscribe((next) => this.snapshot.set(next))
+  }
 
   toggleTool(toolId: string, enabled?: boolean | number): void {
     this.engine.toggleTool(toolId, enabled)
@@ -104,47 +112,16 @@ export class AccessibilityService implements OnDestroy {
 }
 
 /**
- * Standalone directive:
+ * Mount the widget from an Angular component. Call this after the view exists,
+ * for example inside `afterNextRender`:
  *
- *   <div [openA11yWidget]="widgetOptions"></div>
+ *   afterNextRender(() => mountAccessibilityWidget(service))
  */
-@Directive({
-  selector: '[openA11yWidget]',
-  standalone: true,
-})
-export class AccessibilityWidgetDirective implements OnDestroy {
-  private readonly service = inject(AccessibilityService)
-  private readonly host = inject(ElementRef) as ElementRef<HTMLElement>
-  private controller: AccessibilityUIController | null = null
-  private mounted = false
-  private options: UIOptions = {}
-
-  @Input()
-  set openA11yWidget(value: UIOptions | '' | null | undefined) {
-    this.options = value && typeof value === 'object' ? value : {}
-    if (this.mounted) this.mount()
-  }
-
-  ngOnInit(): void {
-    this.mounted = true
-    this.mount()
-  }
-
-  private mount(): void {
-    if (typeof document === 'undefined') return
-    if (!this.service.getEngine().config.enabled) return
-    this.controller?.destroy()
-    this.controller = this.service.showWidget({
-      ...this.options,
-      container: this.host.nativeElement,
-    })
-  }
-
-  ngOnDestroy(): void {
-    this.mounted = false
-    this.controller?.destroy()
-    this.controller = null
-  }
+export function mountAccessibilityWidget(
+  service: AccessibilityService,
+  options?: UIOptions,
+): AccessibilityUIController {
+  return service.showWidget(options)
 }
 
 /** Re-export the core API for single-import convenience. */

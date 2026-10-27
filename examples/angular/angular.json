@@ -26,7 +26,10 @@
             ],
             "styles": [
               "src/styles.css"
-            ]
+            ],
+            "baseHref": "./",
+            "prerender": false,
+            "ssr": false
           },
           "configurations": {
             "production": {

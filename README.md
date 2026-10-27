@@ -8,7 +8,7 @@ for Vanilla JS, React, Vue, Svelte, Angular, Laravel Blade, and Livewire.
 [![CI](https://github.com/aotr/open-a11y/actions/workflows/ci.yml/badge.svg)](https://github.com/aotr/open-a11y/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-0f6b4f.svg)](LICENSE)
 
-[Documentation](./docs/README.md) · [Examples](./examples/README.md) ·
+[Live demos](https://aotr.github.io/open-a11y/) · [Documentation](./docs/README.md) · [Examples](./examples/README.md) ·
 [Laravel package](https://github.com/aotr/open-a11y-laravel) ·
 [Changelog](./CHANGELOG.md)
 
@@ -145,17 +145,16 @@ bootstrapApplication(App, {
 ```
 
 ```ts
-import { Component } from '@angular/core'
-import { AccessibilityService, AccessibilityWidgetDirective } from '@aotr/open-a11y/angular'
+import { Component, afterNextRender, inject } from '@angular/core'
+import { AccessibilityService, mountAccessibilityWidget } from '@aotr/open-a11y/angular'
 
-@Component({
-  selector: 'app-root',
-  imports: [AccessibilityWidgetDirective],
-  template: `<div [openA11yWidget]="options"></div>`,
-})
+@Component({ selector: 'app-root', template: '' })
 export class App {
   readonly service = inject(AccessibilityService)
-  readonly options = { side: 'right' }
+
+  constructor() {
+    afterNextRender(() => mountAccessibilityWidget(this.service, { side: 'right' }))
+  }
 }
 ```
 
@@ -240,6 +239,8 @@ Every injected accessibility stylesheet carries the nonce.
 
 ## Live demos
 
+Try the hosted demos at **[aotr.github.io/open-a11y](https://aotr.github.io/open-a11y/)**.
+
 Each demo is a standalone app with the same customization panel and state
 inspector:
 
@@ -252,7 +253,7 @@ inspector:
 | Angular | `npm run demo:angular` | http://localhost:4178 |
 | Blade + Livewire | see [Laravel repo](https://github.com/aotr/open-a11y-laravel) | http://localhost:4179 |
 
-Run `npm run build` once before starting a demo. Each app has its own source and
+Run `npm run build:demos` to assemble all apps into `site/`, or `npm run build` once before starting a demo. Each app has its own source and
 `package.json`; see [examples/README.md](./examples/README.md).
 
 ## Package exports

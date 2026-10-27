@@ -33,6 +33,7 @@ jobs:
       - run: npm run lint
       - run: npm test
       - run: npm run build
+      - run: node scripts/link-self.mjs
       - run: npm run test:dist
       - run: npx vite build --config examples/vanilla/vite.config.ts
       - run: npx vite build --config examples/react/vite.config.ts

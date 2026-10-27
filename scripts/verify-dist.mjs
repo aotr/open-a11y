@@ -31,7 +31,7 @@ for (const name of ['react', 'vue', 'svelte']) {
 }
 assert.doesNotMatch(files.angularEsm, /asw-user-settings/, 'Angular must not copy the core')
 assert.match(files.angularEsm, /@aotr\/open-a11y/, 'Angular must import the core package')
-assert.match(files.angularTypes, /ɵdir/, 'Angular directive metadata must be present for AOT')
+assert.match(files.angularTypes, /ɵprov/, 'Angular provider metadata must be present for AOT')
 assert.match(files.browser, /OpenA11y/)
 assert.match(files.browser, /asw-user-settings/)
 assert.match(files.coreTypes, /AccessibilityEngine/)

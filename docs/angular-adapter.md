@@ -2,8 +2,8 @@
 
 > `@aotr/open-a11y/angular`
 
-Angular 17+ adapter built with ng-packagr so AOT consumers receive directive and
-provider metadata.
+Angular 17+ adapter built with ng-packagr so AOT consumers receive provider
+metadata. The widget is mounted with a helper, avoiding template coupling.
 
 ## Install
 
@@ -50,29 +50,30 @@ export class Toolbar {
 `settings` and `states` are Angular signals. The service also exposes profile,
 language, reset, widget, and tool actions.
 
-## Directive
+## Mount helper
 
 ```ts
-import { Component } from '@angular/core'
-import { AccessibilityWidgetDirective } from '@aotr/open-a11y/angular'
+import { Component, afterNextRender, inject } from '@angular/core'
+import { AccessibilityService, mountAccessibilityWidget } from '@aotr/open-a11y/angular'
 
-@Component({
-  selector: 'app-root',
-  imports: [AccessibilityWidgetDirective],
-  template: `<div [openA11yWidget]="options"></div>`,
-})
+@Component({ selector: 'app-root', template: '' })
 export class App {
-  readonly options = {
-    position: 'bottom-right' as const,
-    config: { buttonSize: 56 },
+  readonly service = inject(AccessibilityService)
+
+  constructor() {
+    afterNextRender(() => {
+      mountAccessibilityWidget(this.service, {
+        position: 'bottom-right',
+        config: { buttonSize: 56 },
+      })
+    })
   }
 }
 ```
 
-The directive destroys its own controller on destroy. New options remount the
-widget without resetting engine state.
+`mountAccessibilityWidget` returns the controller. Destroy it to remount with new
+options; engine state is preserved.
 
 ## Tests
 
-`__tests__/angular-adapter.test.ts` covers signals, actions, provider creation,
-directive mount, and teardown.
+`__tests__/angular-adapter.test.ts` covers signals, actions, provider creation, mount, and teardown.
