@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - run: npm ci
+      - run: pnpm --dir angular-lib install --frozen-lockfile
+      - run: pnpm --dir examples/angular install --frozen-lockfile
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+      - run: npm run test:dist
+      - run: npx vite build --config examples/vanilla/vite.config.ts
+      - run: npx vite build --config examples/react/vite.config.ts
+      - run: npx vite build --config examples/vue/vite.config.ts
+      - run: npx vite build --config examples/svelte/vite.config.ts
+      - run: pnpm --dir examples/angular build

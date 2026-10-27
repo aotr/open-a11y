@@ -1,0 +1,20 @@
+{
+  "name": "open-a11y-angular",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "sync": "node ../scripts/sync-angular.mjs",
+    "build": "npm run sync && ng-packagr -p ng-package.json"
+  },
+  "devDependencies": {
+    "@aotr/open-a11y": "file:..",
+    "@angular/compiler": "^21.2.25",
+    "@angular/compiler-cli": "^21.2.25",
+    "@angular/core": "^21.2.25",
+    "ng-packagr": "^21.2.7",
+    "typescript": "^5.9.3"
+  },
+  "peerDependencies": {
+    "@angular/core": ">=17.0.0"
+  }
+}

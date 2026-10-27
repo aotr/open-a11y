@@ -1,0 +1,165 @@
+{
+  "name": "@aotr/open-a11y",
+  "version": "2.0.1",
+  "description": "Open-source accessibility widget for Vanilla JS, React, Vue, Svelte, Angular, Blade, and Livewire.",
+  "license": "MIT",
+  "author": {
+    "name": "Animesh Chakraborty",
+    "email": "animesh.aotr@gmail.com",
+    "url": "https://github.com/aotr"
+  },
+  "homepage": "https://github.com/aotr/open-a11y#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aotr/open-a11y.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aotr/open-a11y/issues"
+  },
+  "funding": {
+    "type": "individual",
+    "url": "https://www.linkedin.com/in/animeshchakraborty/"
+  },
+  "keywords": [
+    "accessibility",
+    "a11y",
+    "web-components",
+    "wcag",
+    "aria",
+    "widget",
+    "react",
+    "vue",
+    "svelte",
+    "angular",
+    "laravel",
+    "blade",
+    "livewire",
+    "typescript",
+    "contrast",
+    "font-size",
+    "dyslexia",
+    "screen-reader"
+  ],
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./react": {
+      "types": "./dist/types/react/index.d.ts",
+      "import": "./dist/react.js",
+      "require": "./dist/react.cjs"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./vue": {
+      "types": "./dist/types/vue/index.d.ts",
+      "import": "./dist/vue.js",
+      "require": "./dist/vue.cjs"
+    },
+    "./svelte": {
+      "types": "./dist/types/svelte/index.d.ts",
+      "import": "./dist/svelte.js",
+      "require": "./dist/svelte.cjs"
+    },
+    "./angular": {
+      "types": "./dist/angular/types/open-a11y-angular.d.ts",
+      "default": "./dist/angular/fesm2022/open-a11y-angular.mjs"
+    },
+    "./browser": "./dist/open-a11y.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "docs/assets"
+  ],
+  "sideEffects": [
+    "src/ui/components/*.ts",
+    "src/ui/components/*.js"
+  ],
+  "scripts": {
+    "build:css": "postcss src/ui/styles/accessibility.css -o src/ui/styles/accessibility.rawcss",
+    "postbuild": "cp src/ui/styles/accessibility.rawcss dist/styles.css && node scripts/verify-dist.mjs",
+    "build": "rm -rf dist && npm run build:css && npm run build:js && npm run build:types && npm run build:angular",
+    "test:dist": "node scripts/verify-dist.mjs",
+    "demo": "npm run build && python3 -m http.server 4173",
+    "prepublishOnly": "npm run lint && npm test && npm run build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "tsc --noEmit",
+    "clean": "rm -rf dist src/ui/styles/accessibility.rawcss",
+    "demo:vanilla": "npm run build && vite --config examples/vanilla/vite.config.ts",
+    "demo:react": "npm run build && vite --config examples/react/vite.config.ts",
+    "demo:vue": "npm run build && vite --config examples/vue/vite.config.ts",
+    "demo:svelte": "npm run build && vite --config examples/svelte/vite.config.ts",
+    "demo:angular": "npm run build && pnpm --dir examples/angular exec ng serve --port 4178",
+    "build:js": "rollup -c rollup.config.mjs",
+    "build:types": "tsc -p tsconfig.types.json",
+    "build:angular": "pnpm --dir angular-lib build"
+  },
+  "peerDependencies": {
+    "@angular/core": ">=17.0.0",
+    "react": ">=17.0.0",
+    "svelte": ">=5.0.0",
+    "vue": ">=3.5.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    },
+    "svelte": {
+      "optional": true
+    },
+    "@angular/core": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@angular/compiler": "^21.2.25",
+    "@angular/core": "^21.2.25",
+    "@rollup/plugin-commonjs": "^28.0.9",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@sveltejs/vite-plugin-svelte": "^7.3.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "@vitejs/plugin-vue": "^6.0.10",
+    "@vue/test-utils": "^2.5.1",
+    "autoprefixer": "^10.5.2",
+    "jsdom": "^29.1.1",
+    "postcss": "^8.5.19",
+    "postcss-cli": "^11.0.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "rollup": "^4.65.1",
+    "rollup-plugin-esbuild": "^6.2.1",
+    "rxjs": "^7.8.2",
+    "svelte": "^5.57.2",
+    "typescript": "^5.9.3",
+    "vite": "^8.3.5",
+    "vitest": "^2.0.0",
+    "vue": "^3.5.44",
+    "zone.js": "^0.16.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "lucide": "^1.24.0"
+  },
+  "unpkg": "./dist/open-a11y.js",
+  "jsdelivr": "./dist/open-a11y.js"
+}

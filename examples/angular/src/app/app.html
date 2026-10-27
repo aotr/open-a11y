@@ -1,0 +1,45 @@
+<main class="demo-shell">
+  <header class="demo-header">
+    <div>
+      <div class="demo-brand"><span class="demo-mark">a11y</span> open-a11y</div>
+      <h1>Accessibility that fits the page, not the other way around.</h1>
+    </div>
+    <span class="demo-badge">Angular 21</span>
+  </header>
+
+  <p class="demo-lede">
+    The Angular adapter uses signals and a standalone directive. Register the
+    engine with <code>provideAccessibility(engine)</code>, then bind
+    <code>[openA11yWidget]</code> to UI options. Changes remount the widget
+    without losing accessibility state.
+  </p>
+
+  <div class="demo-grid">
+    <section class="demo-card">
+      <h2>Signals all the way down</h2>
+      <p>
+        <code>AccessibilityService</code> exposes settings and states as signals.
+        The directive uses the same process-wide mount registry as Vanilla, React,
+        Vue, and Svelte.
+      </p>
+      <ul>
+        <li>Angular 17+ standalone directive.</li>
+        <li>Signal-based service.</li>
+        <li>No TestBed required for adapter tests.</li>
+      </ul>
+    </section>
+    <section class="demo-card">
+      <h2>Live state</h2>
+      <pre class="demo-state">{{ service.settings() | json }}</pre>
+    </section>
+  </div>
+
+  <div #customizer></div>
+
+  <div [openA11yWidget]="widgetOptions()"></div>
+
+  <footer class="demo-footer">
+    <span>open-a11y · MIT licensed</span>
+    <a href="https://github.com/aotr/open-a11y">GitHub</a>
+  </footer>
+</main>
