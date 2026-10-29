@@ -32,6 +32,8 @@
     "readableFontAltDesc": "Switch to Lexend — a font proven to improve reading speed and comprehension",
     "highlightLinks": "Highlight Links",
     "highlightLinksDesc": "Make all links more visible with underlines and highlights",
+    "underlineLinks": "Underline Links",
+    "underlineLinksDesc": "Underline all text links without adding a background",
     "highlightTitles": "Highlight Titles",
     "highlightTitlesDesc": "Emphasize headings to distinguish sections clearly",
     "bigCursor": "Big Cursor",

@@ -4,6 +4,7 @@ export { default as lineHeight } from "./lineHeight";
 export { default as letterSpacing } from "./letterSpacing";
 export { default as readableFont } from "./readableFont";
 export { default as highlightLinks } from "./highlightLinks";
+export { default as underlineLinks } from "./underlineLinks";
 export { default as highlightTitles } from "./highlightTitles";
 export { default as hideImages } from "./hideImages";
 export { default as readableFontAlt } from "./readableFontAlt";

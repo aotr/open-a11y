@@ -12,6 +12,7 @@ import { TEXT_ALIGNMENTS } from "../src/tools/content/textAlignment";
 import { adjustFontSize } from "../src/tools/content/fontSize";
 import { adjustLineHeight } from "../src/tools/content/lineHeight";
 import { adjustLetterSpacing } from "../src/tools/content/letterSpacing";
+import underlineLinks from "../src/tools/content/underlineLinks";
 import { removeAllStylesheets } from "../src/css/cssInjector";
 
 afterEach(() => {
@@ -91,5 +92,22 @@ describe("Continuous tools use the shared CSS injector", () => {
 
     adjustLetterSpacing(0);
     expect(document.getElementById("asw-letter-spacing")).toBeNull();
+  });
+});
+
+describe("Underline links", () => {
+  it("injects underline styling and removes it when disabled", () => {
+    underlineLinks(true);
+
+    const style = document.getElementById("asw-underline-links");
+    expect(style?.tagName).toBe("STYLE");
+    expect(style?.getAttribute("data-asw")).toBe("true");
+    expect(style?.textContent).toContain("text-decoration-line:underline !important");
+    expect(style?.textContent).toContain("text-underline-offset:0.16em !important");
+    expect(document.documentElement.classList.contains("asw-underline-links")).toBe(true);
+
+    underlineLinks(false);
+    expect(document.getElementById("asw-underline-links")).toBeNull();
+    expect(document.documentElement.classList.contains("asw-underline-links")).toBe(false);
   });
 });

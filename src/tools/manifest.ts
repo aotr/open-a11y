@@ -16,6 +16,7 @@ import fontWeight from "./content/fontWeight";
 import readableFont from "./content/readableFont";
 import readableFontAlt from "./content/readableFontAlt";
 import highlightLinks from "./content/highlightLinks";
+import underlineLinks from "./content/underlineLinks";
 import highlightTitles from "./content/highlightTitles";
 import hideImages from "./content/hideImages";
 import { enableTextAlignment } from "./content/textAlignment";
@@ -183,6 +184,16 @@ export const TOOLS: Tool[] = [
     }),
     kind: "boolean",
     executor: highlightLinks,
+  },
+  {
+    ...content({
+      id: "underline-links",
+      icon: "underline-links",
+      labelKey: "tools.underlineLinks",
+      descKey: "tools.underlineLinksDesc",
+    }),
+    kind: "boolean",
+    executor: underlineLinks,
   },
   {
     ...content({

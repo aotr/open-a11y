@@ -20,6 +20,7 @@ import {
   LetterText,
   BookOpenText,
   Link,
+  Underline,
   Heading1,
   Palette,
   Droplet,
@@ -92,6 +93,7 @@ export const LUCIDE_ICONS: Record<string, () => string> = {
   "readable-font": () => iconNodeToSvg(BookOpenText as unknown as LucideIconNode[]),
   "readable-font-alt": () => iconNodeToSvg(BookOpenText as unknown as LucideIconNode[]),
   "highlight-links": () => iconNodeToSvg(Link as unknown as LucideIconNode[]),
+  "underline-links": () => iconNodeToSvg(Underline as unknown as LucideIconNode[]),
   "highlight-title": () => iconNodeToSvg(Heading1 as unknown as LucideIconNode[]),
 
   // ── Content tools (new) ──

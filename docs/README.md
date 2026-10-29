@@ -55,7 +55,7 @@ User clicks widget button
     ▼          ▼          ▼          ▼
 ┌───────┐ ┌───────┐ ┌───────┐ ┌──────────┐
 │Tools   │ │State  │ │CSS    │ │Profiles  │
-│29 tools│ │(internal)│ │System │ │7 presets │
+│30 tools│ │(internal)│ │System │ │7 presets │
 └───────┘ └───┬───┘ └───────┘ └──────────┘
               │ persist / hydrate
               ▼

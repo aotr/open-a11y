@@ -1,7 +1,7 @@
 # open-a11y
 
 **One accessible widget, every frontend.** A framework-agnostic accessibility
-toolbar with 29 tools, 7 profiles, persistence, keyboard shortcuts, and adapters
+toolbar with 30 tools, 7 profiles, persistence, keyboard shortcuts, and adapters
 for Vanilla JS, React, Vue, Svelte, Angular, Laravel Blade, and Livewire.
 
 [![npm](https://img.shields.io/npm/v/@aotr/open-a11y?label=npm)](https://www.npmjs.com/package/@aotr/open-a11y)
@@ -29,6 +29,59 @@ for Vanilla JS, React, Vue, Svelte, Angular, Laravel Blade, and Livewire.
 - **Small by default.** The core and adapters are minified; adapters import the
   core instead of bundling it again.
 - **MIT licensed.** Use it in commercial and open-source projects.
+
+## What users can do
+
+| Category           | Tools and capabilities                                                                                               |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| Reading            | Font Size, Font Weight, Line Height, Letter Spacing, Dyslexia Font, Readable Font, **Underline Links**               |
+| Content visibility | Highlight Links, Highlight Titles, Hide Images                                                                       |
+| Color and contrast | Monochrome, Low Saturation, High Saturation, High Contrast, Light Contrast, Dark Contrast, Invert                    |
+| Text alignment     | Align Left, Align Center, Align Right, Justify                                                                       |
+| Navigation         | Big Cursor, Visible Focus, Alt+A / Alt+R shortcuts, skip links                                                       |
+| Reading and focus  | Reading Guide, Reading Ruler, Reading Mask, Focus Mode, Screen Reader                                                |
+| Motion             | Stop Animations, Reduced Motion                                                                                      |
+| Profiles           | Seizure Safe, Vision Impaired, ADHD Friendly, Cognitive Disability, Keyboard Navigation, Blind Users, Motor Impaired |
+| Preferences        | Language, reset, persistent settings, optional hide-button toggle                                                    |
+| Integration        | Vanilla, React, Vue, Svelte, Angular, Blade, Livewire, and Inertia demos                                             |
+
+## How open-a11y compares
+
+This is a capability comparison, not a legal-compliance certification. “Typical
+SaaS overlay” represents products such as UserWay, accessiBe, EqualWeb, and
+AudioEye; plans and features vary by vendor and contract.
+
+| Capability                              | open-a11y | Typical SaaS overlay |
+| --------------------------------------- | --------- | -------------------- |
+| Open source and MIT licensed            | Yes       | No                   |
+| Self-hosted, no vendor script required  | Yes       | No                   |
+| Framework-native adapters               | Yes       | Partial / script tag |
+| Client-side accessibility toolbar       | Yes       | Yes                  |
+| Accessibility profiles                  | Yes       | Yes                  |
+| Reading, focus, and motion aids         | Yes       | Yes                  |
+| Brand, size, and position customization | Yes       | Plan-dependent       |
+| Keyboard shortcuts                      | Yes       | Yes                  |
+| Preference persistence                  | Yes       | Yes                  |
+| CSP nonce support                       | Yes       | Varies               |
+| Laravel / Blade / Livewire support      | Yes       | No                   |
+| Automated page audit                    | Planned   | Yes                  |
+| AI auto-remediation                     | No        | Yes                  |
+| Managed monitoring and reports          | No        | Yes                  |
+| Legal / compliance support              | No        | Yes                  |
+| Recurring per-site subscription         | None      | Yes                  |
+
+## Roadmap
+
+| Planned capability         | Status | What it adds                                           |
+| -------------------------- | ------ | ------------------------------------------------------ |
+| Automated audit mode       | Next   | Scan the page with axe-core and report violations      |
+| Read aloud                 | Next   | Read selected text or the page with the Web Speech API |
+| Page structure navigator   | Next   | List headings and landmarks, then jump to sections     |
+| Word and paragraph spacing | Next   | Complete the WCAG 1.4.12 text-spacing controls         |
+| Plugin API                 | Later  | Register custom tools and profiles without forking     |
+| RTL and Arabic/Hebrew      | Later  | Right-to-left layout and additional locales            |
+| Cookie and server storage  | Later  | Persist preferences for SSR and logged-in users        |
+| Form helper                | Later  | Highlight labels, required fields, and errors          |
 
 ## Adapters
 

@@ -164,6 +164,38 @@ export default function highlightLinks(enable: boolean): void {
 
 ---
 
+## 🔗 Underline Links (`underlineLinks.ts`)
+
+**Type:** Boolean toggle
+
+Underlines text links without adding the blue background used by Highlight Links.
+The underline keeps the link's existing color and uses a readable thickness and
+offset.
+
+```ts
+// src/tools/content/underlineLinks.ts
+export default function underlineLinks(enable: boolean): void {
+  injectToolCSS({ ...underlineLinksConfig, enable });
+}
+```
+
+**Injected CSS:**
+
+```css
+html.asw-underline-links a[href] {
+  text-decoration-line: underline !important;
+  text-decoration-color: currentColor !important;
+  text-decoration-thickness: max(1px, 0.08em) !important;
+  text-underline-offset: 0.16em !important;
+  text-decoration-skip-ink: auto !important;
+}
+```
+
+Use this when a site already uses color to distinguish links and only needs a
+non-color affordance. Highlight Links remains the stronger option.
+
+---
+
 ## 🏷️ Highlight Titles (`highlightTitles.ts`)
 
 **Type:** Boolean toggle

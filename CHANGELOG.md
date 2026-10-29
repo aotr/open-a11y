@@ -2,6 +2,12 @@
 
 All notable changes to `open-a11y` will be documented in this file.
 
+## [Unreleased]
+
+### Added
+
+- `underline-links` tool for underlining text links without the Highlight Links background
+
 ## [2.1.0] — 2026-10-27
 
 ### Added

@@ -39,6 +39,7 @@ interface ISettingsStates {
   "font-weight"?: boolean;
   "readable-font"?: boolean;
   "highlight-links"?: boolean;
+  "underline-links"?: boolean;
   invert?: boolean;
   "big-cursor"?: boolean;
   "visible-focus"?: boolean;

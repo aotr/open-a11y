@@ -10,6 +10,7 @@ export {
   letterSpacing,
   readableFont,
   highlightLinks,
+  underlineLinks,
   highlightTitles,
   hideImages,
   readableFontAlt,

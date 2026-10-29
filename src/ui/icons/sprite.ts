@@ -40,6 +40,7 @@ export const ICONS: Record<string, IconDefinition> = {
   "readable-font": { id: "readable-font", viewBox: "0 0 24 24", path: "" },
   "readable-font-alt": { id: "readable-font-alt", viewBox: "0 0 24 24", path: "" },
   "highlight-links": { id: "highlight-links", viewBox: "0 0 24 24", path: "" },
+  "underline-links": { id: "underline-links", viewBox: "0 0 24 24", path: "" },
   "highlight-title": { id: "highlight-title", viewBox: "0 0 24 24", path: "" },
   "hide-images": { id: "hide-images", viewBox: "0 0 24 24", path: "" },
   monochrome: { id: "monochrome", viewBox: "0 0 24 24", path: "" },

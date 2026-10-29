@@ -205,6 +205,7 @@ export default mergeConfig({
       monochrome: true,
       "readable-font": true,
       "highlight-links": true,
+      "underline-links": true,
     },
     languageChange: true,
   },
