@@ -83,6 +83,33 @@ AudioEye; plans and features vary by vendor and contract.
 | Cookie and server storage  | Later  | Persist preferences for SSR and logged-in users        |
 | Form helper                | Later  | Highlight labels, required fields, and errors          |
 
+## Common questions
+
+**Is open-a11y an overlay?**
+It is a client-side preference toolbar. It changes CSS and adds optional reading and
+focus aids. It does not claim to remediate inaccessible markup or make a site legally
+compliant.
+
+**Does it make my site WCAG compliant?**
+No. It is one part of an accessibility program. You still need semantic HTML, keyboard
+testing, screen-reader testing, manual audits, and fixes in your own components.
+
+**Does it work with Laravel?**
+Yes. The separate `aotr/open-a11y-laravel` package ships Blade, Livewire, and Inertia
+React/Vue/Svelte support plus a standalone browser bundle. No Node build is required
+for the Blade and Livewire components.
+
+**Is it free?**
+Yes. The core and Laravel packages are MIT licensed. There is no per-site subscription
+and no vendor script to load.
+
+**Does it support React, Vue, Svelte, and Angular?**
+Yes. Each framework has a thin adapter over the same engine and web components.
+
+**Where are preferences stored?**
+The default adapter uses `localStorage`. The core also accepts a custom storage adapter;
+server-side sync is not included.
+
 ## Adapters
 
 | Runtime                  | Entry                                                                 | Peer dependency      |

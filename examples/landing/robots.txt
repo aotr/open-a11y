@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aotr.github.io/open-a11y/sitemap.xml

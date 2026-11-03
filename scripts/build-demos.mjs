@@ -27,9 +27,10 @@ fs.cpSync(
   { recursive: true },
 );
 
-fs.copyFileSync(
-  path.join(root, "examples", "landing", "index.html"),
-  path.join(site, "index.html"),
-);
+for (const file of ["index.html", "robots.txt", "sitemap.xml"]) {
+  fs.copyFileSync(path.join(root, "examples", "landing", file), path.join(site, file));
+}
+
+fs.copyFileSync(path.join(root, "docs", "assets", "demo.png"), path.join(site, "og.png"));
 
 console.log(`Demo site built at ${site}`);
