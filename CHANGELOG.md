@@ -2,6 +2,13 @@
 
 All notable changes to `open-a11y` will be documented in this file.
 
+## [2.2.1] — 2026-11-03
+
+### Documentation
+
+- Added a common-questions section and expanded package search metadata
+- Added SEO metadata, sitemap, robots.txt, and a social preview image to the demo site
+
 ## [2.2.0] — 2026-10-30
 
 ### Added
