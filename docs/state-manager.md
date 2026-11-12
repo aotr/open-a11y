@@ -29,7 +29,7 @@ code. It is not exported from `open-a11y`.
 
 ```ts
 interface ISettings {
-  lang?: string; // Active language code ('en', 'hi')
+  lang?: string; // Active language code ('en', 'hi', 'bn')
   states?: ISettingsStates; // Tool states keyed by tool ID
   updatedAt?: string; // ISO timestamp of last change
 }

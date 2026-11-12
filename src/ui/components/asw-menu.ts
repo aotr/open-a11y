@@ -26,6 +26,7 @@ import { renderIcon } from "../icons/sprite";
 import { renderLucideIcon } from "../icons/lucide";
 import { widgetCSS } from "../styles/base.css";
 import { translate } from "../../i18n/translator";
+import { LANGUAGES } from "../../i18n/languages";
 import { PROFILES } from "../../profiles";
 import type {
   IAccessibilityBrand,
@@ -330,11 +331,12 @@ export class AswMenu extends _HTMLElement {
     const langToggle = this.shadowRoot!.querySelector(".asw-menu-lang-toggle");
     langToggle?.addEventListener("click", () => {
       const currentLang = this.getAttribute("lang") ?? "en";
-      const nextLang = currentLang === "en" ? "hi" : "en";
+      const currentIndex = LANGUAGES.findIndex((language) => language.code === currentLang);
+      const nextLanguage = LANGUAGES[(currentIndex + 1) % LANGUAGES.length] ?? LANGUAGES[0];
       this.dispatchEvent(
         new CustomEvent("asw:language", {
           bubbles: true,
-          detail: { lang: nextLang },
+          detail: { lang: nextLanguage.code },
         }),
       );
     });
@@ -366,7 +368,7 @@ export class AswMenu extends _HTMLElement {
 
     const langText = this.shadowRoot!.querySelector(".asw-lang-text");
     if (langText) {
-      langText.textContent = lang === "en" ? "EN" : "हि";
+      langText.textContent = lang.slice(0, 2).toUpperCase();
     }
 
     this.shadowRoot!.querySelectorAll("[data-translate]").forEach((el) => {

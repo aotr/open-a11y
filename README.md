@@ -32,18 +32,18 @@ for Vanilla JS, React, Vue, Svelte, Angular, Laravel Blade, and Livewire.
 
 ## What users can do
 
-| Category           | Tools and capabilities                                                                                               |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------- |
-| Reading            | Font Size, Font Weight, Line Height, Letter Spacing, Dyslexia Font, Readable Font, **Underline Links**               |
-| Content visibility | Highlight Links, Highlight Titles, Hide Images                                                                       |
-| Color and contrast | Monochrome, Low Saturation, High Saturation, High Contrast, Light Contrast, Dark Contrast, Invert                    |
-| Text alignment     | Align Left, Align Center, Align Right, Justify                                                                       |
-| Navigation         | Big Cursor, Visible Focus, Alt+A / Alt+R shortcuts, skip links                                                       |
-| Reading and focus  | Reading Guide, Reading Ruler, Reading Mask, Focus Mode, Screen Reader                                                |
-| Motion             | Stop Animations, Reduced Motion                                                                                      |
-| Profiles           | Seizure Safe, Vision Impaired, ADHD Friendly, Cognitive Disability, Keyboard Navigation, Blind Users, Motor Impaired |
-| Preferences        | Language, reset, persistent settings, optional hide-button toggle                                                    |
-| Integration        | Vanilla, React, Vue, Svelte, Angular, Blade, Livewire, and Inertia demos                                             |
+| Category           | Tools and capabilities                                                                                                                                       |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Reading            | Font Size, Font Weight, Line Height, Letter Spacing, Dyslexia Font, Readable Font, **Underline Links**                                                       |
+| Content visibility | Highlight Links, Highlight Titles, Hide Images                                                                                                               |
+| Color and contrast | Monochrome, Low Saturation, High Saturation, High Contrast, Light Contrast, Dark Contrast, Invert                                                            |
+| Text alignment     | Align Left, Align Center, Align Right, Justify                                                                                                               |
+| Navigation         | Big Cursor, Visible Focus, Alt+A / Alt+R shortcuts, skip links                                                                                               |
+| Reading and focus  | Reading Guide, Reading Ruler, Reading Mask, Focus Mode, Screen Reader                                                                                        |
+| Motion             | Stop Animations, Reduced Motion                                                                                                                              |
+| Profiles           | Seizure Safe, Vision Impaired, ADHD Friendly, Cognitive Disability, Keyboard Navigation, Blind Users, Motor Impaired                                         |
+| Preferences        | 10 UI languages including English, Hindi, Bengali, Marathi, Tamil, Telugu, Gujarati, Kannada, Malayalam, and Punjabi; reset, persistence, hide-button toggle |
+| Integration        | Vanilla, React, Vue, Svelte, Angular, Blade, Livewire, and Inertia demos                                                                                     |
 
 ## How open-a11y compares
 

@@ -105,6 +105,14 @@
   "language": {
     "label": "भाषा",
     "english": "English",
-    "hindi": "हिन्दी (Hindi)"
+    "hindi": "हिन्दी (Hindi)",
+    "bengali": "বাংলা (Bengali)",
+    "marathi": "मराठी (Marathi)",
+    "tamil": "தமிழ் (Tamil)",
+    "telugu": "తెలుగు (Telugu)",
+    "gujarati": "ગુજરાતી (Gujarati)",
+    "kannada": "ಕನ್ನಡ (Kannada)",
+    "malayalam": "മലയാളം (Malayalam)",
+    "punjabi": "ਪੰਜਾਬੀ (Punjabi)"
   }
 }
