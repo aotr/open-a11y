@@ -2,6 +2,14 @@
 
 All notable changes to `open-a11y` will be documented in this file.
 
+## [2.3.0] — 2026-11-12
+
+### Added
+
+- Bundled UI translations for Bengali, Marathi, Tamil, Telugu, Gujarati, Kannada, Malayalam, and Punjabi
+- The menu language toggle now cycles through every bundled locale instead of only English and Hindi
+- Locale key-parity coverage so every bundled catalog stays aligned with English
+
 ## [2.2.1] — 2026-11-03
 
 ### Documentation
